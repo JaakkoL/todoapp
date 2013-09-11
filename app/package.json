@@ -1,0 +1,19 @@
+{
+  "name": "todoapp",
+  "version": "0.0.1",
+  "description": "Tietokantojen harjotustyö",
+  "main": "app.js",
+  "engines" : {
+    "node": "0.10.15",
+    "npm": "1.3.5"
+  },
+  "dependencies": {
+    "consolidate": "~0.9.1",
+    "express": "~3.3.4",
+    "swig": "~0.14.0",
+    "less-middleware": "0.1.12"
+  },
+  "author": "Jaakko Laurila",
+  "license": "BSD",
+  "private": true
+}
