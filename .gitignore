@@ -16,3 +16,4 @@ npm-debug.log
 *.iml
 *.DS_Store*
 bootstrap/*
+node_modules/*
