@@ -3,24 +3,79 @@
 <head>
     <title>TODOAPP - demo</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
     <link href="css/main.css" rel="stylesheet">
-    <script src="js/bootstrap.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../bootstrap/dist/js/bootstrap.js"></script>
 </head>
 <body>
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#">Kissalista</a></li>
-        <li><a href="#">Kissarodut</a></li>
-        <li><a href="#">Palveluskunta</a></li>
-    </ul>
-    <div class="container">
-        <h1>Koe</h1>
-        <ul>
-            <li>Aivan</li>
-            <li>normaali</li>
-            <li>lista</li>
-        </ul>
-    </div>
+
+<div class="container login-register">
+
+        <div class="login clearfix">
+            <h2>Login</h2>
+            <form class="form-horizontal" role="form">
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+                    <div class="controls">
+                        <input type="text" id="inputEmail" placeholder="Email" class="form-control">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPassword">Password</label>
+                    <div class="controls">
+                        <input type="password" id="inputPassword" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="register clearfix">
+            <h2>Register</h2>
+            <form class="form-horizontal" role="form">
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail2">Email</label>
+                    <div class="controls">
+                        <input type="text" id="inputEmail2" placeholder="Email" class="form-control">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPassword2">Password</label>
+                    <div class="controls">
+                        <input type="password" id="inputPassword2" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="firstName">Firstname</label>
+                    <div class="controls">
+                        <input type="text" id="firstName" placeholder="Firstname" class="form-control">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="lastName">Lastname</label>
+                    <div class="controls">
+                        <input type="text" id="lastName" placeholder="Lastname" class="form-control">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+</div> <!-- /container -->
+
+
 </body>
+
 </html>

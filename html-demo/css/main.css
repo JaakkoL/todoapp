@@ -1,0 +1,40 @@
+.container.login-register {
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  margin: 150px auto 0 auto;
+  width: 800px;
+}
+
+.container .login,
+.container .register {
+  float: left;
+  width: 50%;
+  padding: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.appWrapper {
+  widht: 100%;
+}
+
+.infoView,
+.listView,
+.taskView {
+  float: left;
+  min-height: 600px;
+  padding: 20px;
+}
+
+.infoView {
+  width: 20%;
+}
+.listView {
+  width: 35%;
+}
+.taskView {
+  width: 45%;
+}
+

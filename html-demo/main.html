@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TODOAPP - demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../bootstrap/dist/js/bootstrap.js"></script>
+</head>
+<body>
+
+<div class="appWrapper">
+    <div id="infoView" class="infoView">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Viimeksi muokatut</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-list">
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Uusimmat listat</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-list">
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                    <li><a href="#">Listan nimi</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div id="listView" class="listView">
+        <table class="table table-hover">
+            <caption>Kaikki listat (draft)<button type="submit" style="float: right" class="btn btn-success">Uusi</button></caption>
+            <thead>
+            <tr>
+                <th>Nimi</th>
+                <th>Kategoria</th>
+                <th>Viimeksi muokattu</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Listan nimi</td>
+                <td>Listan katgoria</td>
+                <td>17.02.1984</td>
+            </tr>
+            <tr>
+                <td>Listan nimi</td>
+                <td>Listan katgoria</td>
+                <td>17.02.1984</td>
+            </tr>
+            <tr>
+                <td>Listan nimi</td>
+                <td>Listan katgoria</td>
+                <td>17.02.1984</td>
+            </tr>
+            <tr>
+                <td>Listan nimi</td>
+                <td>Listan katgoria</td>
+                <td>17.02.1984</td>
+            </tr>
+            <tr>
+                <td>Listan nimi</td>
+                <td>Listan katgoria</td>
+                <td>17.02.1984</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div id="taskView" class="taskView">
+        <table class="table">
+            <caption>Aktiivisen tehtävälistan nimi</caption>
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Tehtävä</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Tehtävän nimi</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form class="form-horizontal" role="form">
+            <div class="control-group">
+                <div class="controls" style="text-align: right">
+                    <button type="submit" class="btn btn-primary">Muokkaa</button>
+                    <button type="submit" class="btn btn-danger">Poista</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> <!-- /container -->
+
+</body>
+
+</html>
