@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.10)
 # Database: todoapp
-# Generation Time: 2013-09-11 19:40:53 +0000
+# Generation Time: 2013-09-14 17:40:35 +0000
 # ************************************************************
 
 
@@ -85,6 +85,8 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL DEFAULT '' COMMENT 'Password hash',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp when usr was created.',
   `lastlogin` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Timestamp when user last logged in the app.',
+  `firstname` varchar(100) DEFAULT NULL COMMENT 'Users first name',
+  `lastname` varchar(100) DEFAULT NULL COMMENT 'Users last name',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
