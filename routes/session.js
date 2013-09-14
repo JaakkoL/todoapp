@@ -15,12 +15,7 @@ function SessionHandler(connection) {
   this.isLoggedInMiddleware = function(req, res, next) {
     var sessionId = req.cookies.session;
 
-    console.log('validating session: ' + sessionId);
-
     sessions.validateSession(sessionId, function(err, uid) {
-
-      console.log(err);
-      console.log(uid);
 
         // If session exists, pass the user id to the request.
         if (!err && uid) {

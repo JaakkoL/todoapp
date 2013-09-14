@@ -45,7 +45,7 @@ function SessionsDAO(connection) {
         return;
     }
 
-    var query = 'SELECT * FROM sessions WHERE sessionid = ' + connection.escape(sessionId) + ' LIMIT 1';
+    var query = 'SELECT * FROM session WHERE sessionid = ' + connection.escape(sessionId) + ' LIMIT 1';
 
     connection.query(query, function(err, session) {
       if (err) return callback(err, null);
@@ -55,7 +55,7 @@ function SessionsDAO(connection) {
         return;
       }
 
-      callback(null, session.uid);
+      callback(null, session[0].uid);
     });
 
     }

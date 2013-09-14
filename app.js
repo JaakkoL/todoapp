@@ -6,7 +6,9 @@
 var express = require("express"),
     app = express()
     mysql = require('mysql'),
-    routes = require('./routes');
+    routes = require('./routes'),
+    consolidate = require('consolidate'),
+    less = require('less-middleware');
 
 // Database connection object.
 var connection = mysql.createConnection({
@@ -22,6 +24,23 @@ connection.connect();
 
 // Add application logging.
 app.use(express.logger());
+
+// Configure templating.
+app.engine('html', consolidate.swig);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+
+// Less configurations.
+app.use(less({
+  dest: __dirname + '/public/css',
+  src: __dirname + '/less',
+  prefix: '/css',
+  compress: true,
+  debug: true
+}));
+
+// Static content path.
+app.use(express.static(__dirname + '/public'));
 
 // Express middleware to populate 'req.cookies' so we can access cookies
 app.use(express.cookieParser());

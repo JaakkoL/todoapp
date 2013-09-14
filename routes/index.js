@@ -15,16 +15,34 @@ module.exports = exports = function(app, connection) {
   // Checks if users is logged in or not.
   app.use(sessions.isLoggedInMiddleware);
 
+  /**
+   *  Get routes.
+   */
 
-  app.get('/', function(request, response) {
-//    response.json(quotes);
-    response.send('Hello World!');
+  // Define the application page based on users login status.
+  app.get('/', function(req, res) {
+    if (req.uid) {
+      res.render('app');
+    }
+    else {
+      res.render('login');
+    }
   });
 
-  app.get('/register', sessions.handleRegistration)
 
-  app.get('/login', sessions.handleLogin)
-  app.get('/logout', sessions.handleLogout)
+
+  /**
+   *  Application backend.
+   */
+
+  // Registration callback
+  app.post('/register', sessions.handleRegistration)
+
+  // Login callback.
+  app.post('/login', sessions.handleLogin)
+
+  // Logout callback.
+  app.post('/logout', sessions.handleLogout)
 
   // Set up error handling
   app.use(ErrorHandler);
