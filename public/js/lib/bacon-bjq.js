@@ -3,8 +3,7 @@
     __slice = [].slice;
 
   init = function(Bacon, $) {
-    var Lens, Model, fold, globalModCount, id, idCounter, isChrome, isModel, nonEmpty, shallowCopy, _ref;
-    isChrome = (typeof navigator !== "undefined" && navigator !== null ? (_ref = navigator.userAgent) != null ? _ref.toLowerCase().indexOf("chrome") : void 0 : void 0) > -1;
+    var Lens, Model, fold, globalModCount, id, idCounter, isModel, nonEmpty, shallowCopy;
     id = function(x) {
       return x;
     };
@@ -54,7 +53,7 @@
         }));
       };
       model.apply = function(source) {
-        modificationBus.plug(source.map(function(f) {
+        modificationBus.plug(source.toEventStream().map(function(f) {
           return {
             source: source,
             f: f
@@ -89,7 +88,7 @@
         return other.addSyncSource(this.syncEvents());
       };
       model.onValue();
-      if ((initValue != null)) {
+      if (arguments.length >= 1) {
         model.set(initValue);
       }
       model.lens = function(lens) {
@@ -202,19 +201,13 @@
     Bacon.$.textFieldValue = function(element, initValue) {
       var autofillPoller, events, get;
       nonEmpty = function(x) {
-        return x ? x.length > 0 : false; // FIXED -Timo
+        return x.length > 0;
       };
       get = function() {
         return element.val();
       };
       autofillPoller = function() {
-        if (element.attr("type") === "password") {
-          return Bacon.interval(100);
-        } else if (isChrome) {
-          return Bacon.interval(100).take(20).map(get).filter(nonEmpty).take(1);
-        } else {
-          return Bacon.never();
-        }
+        return Bacon.interval(50).take(10).map(get).filter(nonEmpty).take(1);
       };
       events = element.asEventStream("keyup input").merge(element.asEventStream("cut paste").delay(1)).merge(autofillPoller());
       return Bacon.Binding({
@@ -318,7 +311,7 @@
     Bacon.$.lazyAjax = function(params) {
       return Bacon.once(params).flatMap(Bacon.$.ajax);
     };
-    Bacon.EventStream.prototype.ajax = function() {
+    Bacon.Observable.prototype.ajax = function() {
       return this.flatMapLatest(Bacon.$.ajax);
     };
     $.fn.extend({

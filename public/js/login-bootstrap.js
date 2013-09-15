@@ -18,7 +18,7 @@ require({
   shim: {
     Handlebars: { exports: 'Handlebars' },
     bacon: { exports: 'Bacon' },
-    bjq: { deps: ['jquery'] },
+    bjq: { deps: ['jquery', 'bacon'] },
     jquery: { exports: '$' },
     lodash: { exports: '_' }
   },
@@ -35,6 +35,6 @@ require([
   'controllers/register'
 ], function($, bacon, _, login, register) {
 
-  login.render($('#login'));
-  register.render($('#register'));
+  login.init($('#login'));
+  register.init($('#register'));
 })

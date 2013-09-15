@@ -30,17 +30,11 @@ function SessionHandler(connection) {
 
   // Handles login form.
   this.handleLogin = function(req, res, next) {
-
-    // TODO: Get credentials from request body.
-    // TODO: Make sure only on instance is created in the session table or that it's properly cleaned after.
-    var email = "jaakko@meedoc.com",
-        password = "jaakko";
-
-    users.validateLogin(email, password, function(err, user) {
+    users.validateLogin(req.body.email, req.body.password, function(err, user) {
 
       if (err) {
         if (err.invalidCredentials) {
-          return res.send('wrong credentials');
+          return res.json(401, {'error': 'Wrong username or password.'});
         }
         else {
           // Some funky error.
@@ -50,24 +44,21 @@ function SessionHandler(connection) {
 
       // Start new session for the user.
       sessions.startSession(user.uid, function(err, sessionId) {
-
         if (err) return next(err);
         res.cookie('session', sessionId, { httpOnly: true });
 
-        res.send('user logged in and session set');
+        return res.json(200, {'success': 'User logged in.'});
       });
 
     });
-
   }
 
   // Logs user out of the app.
   this.handleLogout = function(req, res) {
     var sessionId = req.cookies.session;
     sessions.endSession(sessionId, function(err, result) {
-      console.log(result);
       res.cookie('session', '', { httpOnly: true });
-      res.send('user logged out');
+      return res.json(200, {'success': 'User logged out.'});
     });
   }
 
@@ -75,30 +66,23 @@ function SessionHandler(connection) {
   this.handleRegistration = function(req, res) {
     // TODO: Validate input parameters. Email is used as username so it needs to be unique.
 
-    var testData = {
-      email : "pasi@meedoc.com",
-      password : "jaakko",
-      firstName : "Jaakko",
-      lastName : "Laurila"
-    };
-
     // First check if username is available;
-    users.usernameExists(testData.email, function(err, exists) {
+    users.usernameExists(req.body.email, function(err, exists) {
       console.log('users.usernameExists ' + exists);
       if (err) {
         console.log(err);
       }
 
       if (exists) {
-        res.send("Email already exists.");
+        res.json(500, {'error' : 'Email already exists.'});
       } else {
         // Try to add user into database.
-        users.addUser(testData, function(err, results) {
+        users.addUser(req.body, function(err, results) {
           if (err) {
             console.log(err);
           }
-          console.log(results);
-          res.send("User registered");
+
+          res.json(200, {'success' : 'Registration successful.'});
         });
       }
 

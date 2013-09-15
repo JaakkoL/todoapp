@@ -1,1 +1,15 @@
-<p>login</p>
+<form id="loginForm">
+    <div class="form-element">
+        <label>Email</label>
+        <input class="email" type="text" placeholder="email" />
+    </div>
+
+    <div class="form-element">
+        <label>Password</label>
+        <input class="password" type="text" placeholder="password" />
+    </div>
+
+    <div class="form-buttons">
+        <button data-action="login">Login</button>
+    </div>
+</form>

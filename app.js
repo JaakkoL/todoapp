@@ -22,6 +22,7 @@ var connection = mysql.createConnection({
 // TODO: Remember to kill this at some point.
 connection.connect();
 
+
 // Add application logging.
 app.use(express.logger());
 
@@ -41,6 +42,7 @@ app.use(less({
 
 // Static content path.
 app.use(express.static(__dirname + '/public'));
+
 
 // Express middleware to populate 'req.cookies' so we can access cookies
 app.use(express.cookieParser());
