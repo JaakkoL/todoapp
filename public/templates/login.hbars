@@ -6,7 +6,7 @@
 
     <div class="form-element">
         <label>Password</label>
-        <input class="password" type="text" placeholder="password" />
+        <input class="password" type="password" placeholder="password" />
     </div>
 
     <div class="form-buttons">

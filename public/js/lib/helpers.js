@@ -6,8 +6,6 @@ function validEmail(x) {
 }
 
 function setVisibility(element, visible) {
-  console.log(element);
-  console.log(visible);
   element.toggle(visible)
 }
 

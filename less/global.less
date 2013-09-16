@@ -1,16 +1,27 @@
 /* =============================================================================
-   Color definitions.
+   Shared global styles.
    ========================================================================== */
-@linkColor: #000;
 
-@colorOrange: #EA6045;
-@colorYellow: #F8CA4D;
-@colorBeige: #F5E5C0;
-@colorBlue: #3F5666;
-@colorDarkBlue: #2F3440;
+body {
+  background: @colorBlue;
+}
 
+
+.appWrapper {
+  min-width: 980px;
+}
 
 /* =============================================================================
-   Heights & widths.
+   Login page.
    ========================================================================== */
 
+.loginWrapper {
+  margin: 200px auto 0 auto;
+  width: 800px;
+}
+
+.loginFormWrapper,
+.registerFormWrapper {
+  float: left;
+  width: 400px;
+}
