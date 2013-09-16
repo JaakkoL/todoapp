@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 127.0.0.1 (MySQL 5.6.10)
-# Database: todoapp
-# Generation Time: 2013-09-16 17:23:49 +0000
+# Host: eu-cdbr-west-01.cleardb.com (MySQL 5.5.29-log)
+# Database: heroku_798daeacbebf007
+# Generation Time: 2013-09-16 18:13:28 +0000
 # ************************************************************
 
 
@@ -40,8 +40,10 @@ CREATE TABLE `category` (
   `categoryId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Category id.',
   `parent` int(11) DEFAULT NULL COMMENT 'Category parent item id.',
   `name` varchar(255) DEFAULT NULL COMMENT 'Category name.',
+  `uid` int(11) NOT NULL COMMENT 'Creator user id.',
   PRIMARY KEY (`categoryId`),
-  KEY `parent` (`parent`)
+  KEY `parent` (`parent`),
+  KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -52,7 +54,9 @@ CREATE TABLE `category` (
 CREATE TABLE `list` (
   `listId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'List unique id.',
   `categoryId` int(11) DEFAULT NULL COMMENT 'Category id where this list belongs to.',
-  `name` varchar(255) DEFAULT NULL COMMENT 'List name',
+  `name` varchar(255) DEFAULT NULL COMMENT 'List name.',
+  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'List creation time.',
+  `edited` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when list was last modified.',
   PRIMARY KEY (`listId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -74,16 +78,16 @@ CREATE TABLE `session` (
 # ------------------------------------------------------------
 
 CREATE TABLE `task` (
-  `tid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Task id.',
-  `lid` int(11) DEFAULT NULL COMMENT 'Associated list id.',
+  `taskId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Task id.',
+  `listId` int(11) DEFAULT NULL COMMENT 'Associated list id.',
   `creator` int(11) DEFAULT NULL COMMENT 'Creator of the task',
   `editedby` int(11) DEFAULT NULL COMMENT 'User who last edited the item.',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Task creation timestamp',
   `modified` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when task was last modified.',
   `status` varchar(50) DEFAULT NULL COMMENT 'Tasks status.',
   `text` varchar(255) DEFAULT NULL COMMENT 'Task contents.',
-  PRIMARY KEY (`tid`),
-  KEY `lid` (`lid`)
+  PRIMARY KEY (`taskId`),
+  KEY `lid` (`listId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -93,7 +97,7 @@ CREATE TABLE `task` (
 
 CREATE TABLE `user` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique user id',
-  `email` varchar(255) NOT NULL DEFAULT '' COMMENT 'Users unique email',
+  `email` varchar(80) NOT NULL DEFAULT '' COMMENT 'Users unique email',
   `password` varchar(255) NOT NULL DEFAULT '' COMMENT 'Password hash',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp when usr was created.',
   `lastlogin` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Timestamp when user last logged in the app.',
