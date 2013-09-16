@@ -1,0 +1,41 @@
+/* =============================================================================
+   Forms.
+   ========================================================================== */
+button {
+  padding: 0px;
+}
+
+button, input[type=submit] {
+  color: #fff;
+  background: transparent;
+  border: none;
+  margin: 0pt;
+  padding: 10pt;
+  cursor: pointer;
+  text-align: left;
+}
+
+.button {
+  cursor: pointer;
+}
+
+input {
+  &[type=text],
+  &[type=password] {
+    background: white;
+    border: none;
+    color: @greyBlue;
+    font-size: 2.1rem;
+    font-family: 'Bariol-light';
+    line-height: 2.0rem;
+    margin: 0 0 5px 0;
+    max-width: 300px;
+    padding: 10px;
+    width: 100%
+  }
+
+  &:focus,
+  &:active {
+    outline: none !important;
+  }
+}

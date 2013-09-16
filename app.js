@@ -32,8 +32,8 @@ var connection = mysql.createConnection({
 });
 
 // Establish database connection.
-// TODO: Remember to kill this at some point.
-connection.connect();
+// TODO: Remember to kill this at some point. Or... is this even needed?
+//connection.connect();
 
 // Add application logging.
 app.use(express.logger());
