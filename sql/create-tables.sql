@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.10)
 # Database: todoapp
-# Generation Time: 2013-09-14 17:40:35 +0000
+# Generation Time: 2013-09-16 17:23:49 +0000
 # ************************************************************
 
 
@@ -24,11 +24,11 @@
 # ------------------------------------------------------------
 
 CREATE TABLE `access` (
-  `uid` int(11) unsigned NOT NULL,
-  `lid` int(11) NOT NULL,
-  `role` varchar(50) NOT NULL DEFAULT '',
+  `uid` int(11) unsigned NOT NULL COMMENT 'Users id.',
+  `listId` int(11) NOT NULL COMMENT 'Lists is.',
+  `role` varchar(50) NOT NULL DEFAULT '' COMMENT 'Access role, owner or contributor.',
   KEY `uid` (`uid`),
-  KEY `lid` (`lid`)
+  KEY `lid` (`listId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -37,37 +37,49 @@ CREATE TABLE `access` (
 # ------------------------------------------------------------
 
 CREATE TABLE `category` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Category id.',
+  `categoryId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Category id.',
   `parent` int(11) DEFAULT NULL COMMENT 'Category parent item id.',
   `name` varchar(255) DEFAULT NULL COMMENT 'Category name.',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`categoryId`),
   KEY `parent` (`parent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
-# Dump of table lists
+# Dump of table list
 # ------------------------------------------------------------
 
-CREATE TABLE `lists` (
-  `lid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'List id.',
-  `cid` int(11) DEFAULT NULL COMMENT 'Category id where this list belongs to.',
+CREATE TABLE `list` (
+  `listId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'List unique id.',
+  `categoryId` int(11) DEFAULT NULL COMMENT 'Category id where this list belongs to.',
   `name` varchar(255) DEFAULT NULL COMMENT 'List name',
-  PRIMARY KEY (`lid`)
+  PRIMARY KEY (`listId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
-# Dump of table tasks
+# Dump of table session
 # ------------------------------------------------------------
 
-CREATE TABLE `tasks` (
+CREATE TABLE `session` (
+  `uid` int(11) DEFAULT NULL COMMENT 'Session users id.',
+  `sessionId` varchar(255) DEFAULT NULL COMMENT 'Session id string.',
+  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation timestamp.',
+  UNIQUE KEY `sessionid` (`sessionId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table task
+# ------------------------------------------------------------
+
+CREATE TABLE `task` (
   `tid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Task id.',
   `lid` int(11) DEFAULT NULL COMMENT 'Associated list id.',
   `creator` int(11) DEFAULT NULL COMMENT 'Creator of the task',
   `editedby` int(11) DEFAULT NULL COMMENT 'User who last edited the item.',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Task creation timestamp',
-  `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp when task was last modified.',
+  `modified` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when task was last modified.',
   `status` varchar(50) DEFAULT NULL COMMENT 'Tasks status.',
   `text` varchar(255) DEFAULT NULL COMMENT 'Task contents.',
   PRIMARY KEY (`tid`),
@@ -76,10 +88,10 @@ CREATE TABLE `tasks` (
 
 
 
-# Dump of table users
+# Dump of table user
 # ------------------------------------------------------------
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique user id',
   `email` varchar(255) NOT NULL DEFAULT '' COMMENT 'Users unique email',
   `password` varchar(255) NOT NULL DEFAULT '' COMMENT 'Password hash',

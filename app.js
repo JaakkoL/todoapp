@@ -3,25 +3,37 @@
  *
  * Initialises the application.
  */
-var express = require("express"),
+var express = require('express'),
     app = express()
     mysql = require('mysql'),
     routes = require('./routes'),
     consolidate = require('consolidate'),
-    less = require('less-middleware');
+    less = require('less-middleware'),
+    configs = null;
+
+switch(process.env.NODE_ENV){
+    case 'production':
+        configs = require('./config/production');
+        break;
+    case 'development':
+        configs = require('./config/development');
+        break;
+
+    default:
+        throw new Exception('Wrong environment!');
+}
 
 // Database connection object.
 var connection = mysql.createConnection({
-  host     : '127.0.0.1',
-  user     : 'root',
-  password : '',
-  database : 'todoapp'
+  host     : configs.db.host,
+  user     : configs.db.user,
+  password : configs.db.password,
+  database : configs.db.database
 });
 
 // Establish database connection.
 // TODO: Remember to kill this at some point.
 connection.connect();
-
 
 // Add application logging.
 app.use(express.logger());
@@ -59,5 +71,5 @@ var port = process.env.PORT || 8080;
 
 // Start server.
 app.listen(port, function() {
-  console.log("App started on port: " + port);
+  console.log('App started on port: ' + port);
 });

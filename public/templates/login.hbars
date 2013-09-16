@@ -12,4 +12,6 @@
     <div class="form-buttons">
         <button data-action="login">Login</button>
     </div>
+
+    <div class="throbber">throbber</div>
 </form>

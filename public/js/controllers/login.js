@@ -16,17 +16,23 @@ define([
     var email = bjq.textFieldValue(element.find('.email'), ''),
         password = bjq.textFieldValue(element.find('.password'), '');
 
-    var buttonEnabled = (function() {
-      return email.map(nonEmpty)
-        .and(password.map(nonEmpty))
-        .and(email.map(validEmail));
-    })();
 
     // Login submit handling.
     var loginButtonClick = element.find('[data-action="login"]').asEventStream('click').doAction('.preventDefault');
-    var loginResponse = Bacon.combineTemplate( {email : email, password : password} )
-      .sampledBy(loginButtonClick)
-      .flatMap(loginRequest);
+
+    var loginRequest = email.combine(password, function(e, p) {
+      return {
+         url: '/login',
+         type: "post",
+         data: {email: e, password: p}
+       };
+
+    }).sampledBy(loginButtonClick);
+
+    var loginResponse = loginRequest.ajax();
+
+    var loginPending = loginRequest.awaiting(loginResponse);
+
 
     loginResponse.onValue(function(response) {
       // TODO: Redirect to application page.
@@ -42,16 +48,18 @@ define([
     });
 
     // Side effects.
-    buttonEnabled.not().onValue(element.find('[data-action="login"]'), 'attr', 'disabled');
-    // TODO: Ajax throbber for pending requests.
-  }
+    var buttonEnabled = (function() {
+          return email.map(nonEmpty)
+            .and(password.map(nonEmpty))
+            .and(email.map(validEmail));
+        })();
 
-  function loginRequest(credentials) {
-    return Bacon.once({
-        url: '/login',
-        type: "post",
-        data: credentials
-      }).ajax();
+
+    var throbber = element.find('.throbber');
+    buttonEnabled.onValue(setEnabled, element.find('[data-action="login"]'));
+    loginPending.onValue(setVisibility, throbber);
+    loginPending.onError(setVisibility, throbber);
+    // TODO: Ajax throbber for pending requests.
   }
 
 

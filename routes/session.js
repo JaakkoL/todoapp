@@ -30,7 +30,8 @@ function SessionHandler(connection) {
 
   // Handles login form.
   this.handleLogin = function(req, res, next) {
-    users.validateLogin(req.body.email, req.body.password, function(err, user) {
+  setTimeout(function() {
+users.validateLogin(req.body.email, req.body.password, function(err, user) {
 
       if (err) {
         if (err.invalidCredentials) {
@@ -51,6 +52,8 @@ function SessionHandler(connection) {
       });
 
     });
+  }, 2000);
+
   }
 
   // Logs user out of the app.
