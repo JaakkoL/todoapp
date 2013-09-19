@@ -12,26 +12,72 @@ button, input[type=submit] {
 }
 
 label {
-  color: white;
   display: block;
-  font-size: 22px;
+  font-size: 2rem;
   font-weight: 100;
+}
+
+.label-hidden {
+  label {
+    height: 0px;
+    visibility: hidden;
+  }
 }
 
 input {
   &[type=text],
   &[type=password] {
-    font-size: 22px;
-    line-height: 30px;
-    padding: 5px;
     border: none;
+    border-bottom: 1px solid transparent;
+    font-size: 2rem;
     font-weight: 100;
+    line-height: 2rem;
     max-width: 300px;
+    padding: 5px 10px;
     width: 100%;
+
+    .transition(all 0.4s);
   }
 
   &:focus,
   &:active {
+    border-bottom: 1px solid @colorSunflower;
     outline: none !important;
+  }
+}
+
+.form-element {
+  margin-bottom: 10px;
+}
+
+/* =============================================================================
+   Buttons.
+   ========================================================================== */
+.btn {
+  background-color: @colorNephritis;
+  border: 0;
+  color: white;
+  line-height: 2rem;
+  font-size: 2rem;
+  margin: 10px 10px 10px 0;
+  padding: 10px 20px;
+
+  .transition(all 0.4s);
+
+  &[disabled="disabled"] {
+    background-color: @colorSilver;
+  }
+
+  &:hover {
+    background-color: @colorEmerald;
+
+    &[disabled="disabled"] {
+      background-color: @colorSilver;
+    }
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
   }
 }

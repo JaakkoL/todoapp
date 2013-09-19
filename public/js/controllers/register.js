@@ -31,16 +31,18 @@ define([
       .flatMap(registerRequest);
 
     registerResponse.onValue(function(response) {
-      // TODO: Redirect to application page.
-      console.log('success');
-      console.log(response);
-      //window.location.reload();
+      element.addClass('flipped');
     });
 
     registerResponse.onError(function(err) {
-      // TODO: Show error message.
-      console.log('error occured');
-      console.log(err);
+      var options = {
+          type : err.responseJSON.type,
+          message : err.responseJSON.message,
+          autoRemove : true,
+          log : err.responseText
+      }
+
+      notification.show(options);
     });
 
     // Side effects.

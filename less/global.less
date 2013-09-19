@@ -2,26 +2,245 @@
    Shared global styles.
    ========================================================================== */
 
-body {
-  background: @colorBlue;
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
+body {
+  background: @colorClouds;
+  position: relative;
+}
 
 .appWrapper {
   min-width: 980px;
 }
 
 /* =============================================================================
+   Typography.
+   ========================================================================== */
+
+@mainHeadingFont: 'Lobster', cursive;
+@bodyFont: 'Raleway', serif;
+@headingFont:  'Gloria Hallelujah', cursive;
+
+
+html { font-size: 62.5%; }
+body { font-size: 1.8rem; } /* =14px */
+
+body,
+button,
+input,
+select,
+textarea {
+  color: @colorMidnight;
+  font-family: @bodyFont;
+  font-weight: 300;
+}
+
+// Headings.
+h1, h2, h3, h4, h5, h6 {
+  font-family: @headingFont;
+  font-weight: normal;
+}
+
+.site-title {
+  font-family: @mainHeadingFont;
+  font-size: 8.0rem;
+  margin: 40px 0 0 0;
+  text-align: center;
+  text-shadow: 5px 5px #ccc;
+  -webkit-text-stroke: 1px #555;
+}
+
+.tagline {
+  font-family: @mainHeadingFont;
+  margin: 0;
+  margin-bottom: 40px;
+  color: #ccc;
+  font-size: 30px;
+  text-align: center;
+  -webkit-text-stroke: 1px #aaa;
+}
+
+.form-title {
+  color: #000;
+}
+
+// Throbber.
+.throbber {
+  background: url(../img/throbber.gif) center center no-repeat;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+/* =============================================================================
+   Notifications.
+   ========================================================================== */
+@notificationWidth: 320px;
+
+.notification {
+  .border-radius(4px);
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 2.0rem;
+  letter-spacing: 1px;
+  line-height: 20px;
+  text-align: center;
+  display: none;
+
+  padding: 1.0rem 0.5rem;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  margin-left: -@notificationWidth/2;
+  width: @notificationWidth;
+  left: 50%;
+  z-index: 3000;
+
+  a {
+    border-bottom: 1px solid;
+    color: black;
+  }
+
+  p {
+   font-size: 1.2rem;
+   margin: 0;
+  }
+
+  &.type-success {
+    background-color: @colorNephritis;
+  }
+  &.type-error {
+    background-color: @pomeGranate;
+  }
+  &.type-warning {
+    background-color: @colorSunflower;
+  }
+
+  .close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+}
+
+/* =============================================================================
+   CSS ARROW BOXES. See http://cssarrowplease.com/.
+   ========================================================================== */
+
+.arrow-box {
+  position: relative;
+  background: @colorEmerald;
+  width: 200px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+
+  &:after {
+    right: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+
+    border-color: transparent;
+    border-right-color: @colorEmerald;
+    border-width: 20px;
+    top: 50%;
+    margin-top: -20px;
+  }
+
+}
+
+/* =============================================================================
+   CSS CARD FLIP.
+   ========================================================================== */
+
+/* entire container, keeps perspective */
+.flip-container {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container.flipped .flipper {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+.flip-container, .front, .back {
+  width: 320px;
+  height: 480px;
+}
+
+/* flip speed goes here */
+.flipper {
+  -webkit-transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+
+  -moz-transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+ -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+}
+
+/* back, initially hidden pane */
+.back {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+/* =============================================================================
    Login page.
    ========================================================================== */
 
-.loginWrapper {
-  margin: 200px auto 0 auto;
+.login-wrapper {
+  margin: 0 auto;
   width: 800px;
 }
 
-.loginFormWrapper,
-.registerFormWrapper {
+.login-form-wrapper,
+.register-form-wrapper {
   float: left;
+  padding: 0 40px;
   width: 400px;
+}
+
+.register-form-wrapper {
+  .back {
+    text-align: center
+  }
 }

@@ -1,17 +1,19 @@
-<form id="loginForm">
+<form id="loginForm" class="label-hidden">
+    <h2 class="form-title">Login</h2>
+
     <div class="form-element">
         <label>Email</label>
-        <input class="email" type="text" placeholder="email" />
+        <input class="email" type="text" placeholder="email" value="jaakko@meedoc.com"/>
     </div>
 
     <div class="form-element">
         <label>Password</label>
-        <input class="password" type="password" placeholder="password" />
+        <input class="password" type="password" placeholder="password"  value="jaakko"/>
     </div>
 
     <div class="form-buttons">
-        <button data-action="login">Login</button>
+        <button data-action="login" class="btn">Login</button>
     </div>
 
-    <div class="throbber">throbber</div>
+    <div class="throbber"></div>
 </form>

@@ -42,9 +42,14 @@ define([
     });
 
     loginResponse.onError(function(err) {
-      // TODO: Show error message.
-      console.log('error occured');
-      console.log(err);
+      var options = {
+          type : err.responseJSON.type,
+          message : err.responseJSON.message,
+          autoRemove : false,
+          log : err.responseText
+      }
+
+      notification.show(options);
     });
 
     // Side effects.

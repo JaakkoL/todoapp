@@ -30,12 +30,12 @@ function SessionHandler(connection) {
 
   // Handles login form.
   this.handleLogin = function(req, res, next) {
-  setTimeout(function() {
-users.validateLogin(req.body.email, req.body.password, function(err, user) {
+
+    users.validateLogin(req.body.email, req.body.password, function(err, user) {
 
       if (err) {
         if (err.invalidCredentials) {
-          return res.json(401, {'error': 'Wrong username or password.'});
+          return res.json(401, {'type' : 'error', 'message' : 'Wrong username or password.'});
         }
         else {
           // Some funky error.
@@ -48,11 +48,10 @@ users.validateLogin(req.body.email, req.body.password, function(err, user) {
         if (err) return next(err);
         res.cookie('session', sessionId, { httpOnly: true });
 
-        return res.json(200, {'success': 'User logged in.'});
+        return res.json(200, {'type' : 'success', 'message' : 'User logged in.'});
       });
 
     });
-  }, 2000);
 
   }
 
@@ -61,7 +60,7 @@ users.validateLogin(req.body.email, req.body.password, function(err, user) {
     var sessionId = req.cookies.session;
     sessions.endSession(sessionId, function(err, result) {
       res.cookie('session', '', { httpOnly: true });
-      return res.json(200, {'success': 'User logged out.'});
+      return res.json(200, {'type' : 'success', 'message' : 'User logged out.'});
     });
   }
 
@@ -77,7 +76,7 @@ users.validateLogin(req.body.email, req.body.password, function(err, user) {
       }
 
       if (exists) {
-        res.json(500, {'error' : 'Email already exists.'});
+        res.json(500, {'type' : 'error', 'message' : 'Email already exists.'});
       } else {
         // Try to add user into database.
         users.addUser(req.body, function(err, results) {
@@ -85,7 +84,7 @@ users.validateLogin(req.body.email, req.body.password, function(err, user) {
             console.log(err);
           }
 
-          res.json(200, {'success' : 'Registration successful.'});
+          res.json(200, {'type' : 'success', 'message' : 'Registration succesful.'});
         });
       }
 

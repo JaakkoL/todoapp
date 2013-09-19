@@ -1,25 +1,38 @@
-<form id="registrationForm">
-    <div class="form-element">
-        <label>Email</label>
-        <input class="email" type="text" placeholder="email" />
-    </div>
+<div class="flipper">
+    <div class="front">
+        <form id="registrationForm" class="label-hidden">
+            <h2 class="form-title">Register</h2>
 
-    <div class="form-element">
-        <label>Password</label>
-        <input class="password" type="password" placeholder="password" />
-    </div>
+            <div class="form-element">
+                <label>Email</label>
+                <input class="email" type="text" placeholder="email" />
+            </div>
 
-    <div class="form-element">
-        <label>First name</label>
-        <input class="firstName" type="text" placeholder="first name" />
-    </div>
+            <div class="form-element">
+                <label>Password</label>
+                <input class="password" type="password" placeholder="password" />
+            </div>
 
-    <div class="form-element">
-        <label>Last name</label>
-        <input class="lastName" type="text" placeholder="last name" />
-    </div>
+            <div class="form-element">
+                <label>First name</label>
+                <input class="firstName" type="text" placeholder="first name" />
+            </div>
 
-    <div class="form-buttons">
-        <button data-action="register">Register</button>
+            <div class="form-element">
+                <label>Last name</label>
+                <input class="lastName" type="text" placeholder="last name" />
+            </div>
+
+            <div class="form-buttons">
+                <button data-action="register" class="btn">Register</button>
+            </div>
+        </form>
     </div>
-</form>
+    <div class="back">
+        <h2>Congratulations!</h2>
+        <p>Your'e now proud user of this fantastic app!</p>
+        <div class="arrow-box">
+            Log in to unleash full potential!
+        </div>
+    </div>
+</div>
