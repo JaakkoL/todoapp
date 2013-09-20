@@ -11,7 +11,6 @@ module.exports = exports = function(app, connection) {
 
   var sessions = new SessionHandler(connection);
 
-
   // Checks if users is logged in or not.
   app.use(sessions.isLoggedInMiddleware);
 
@@ -28,7 +27,6 @@ module.exports = exports = function(app, connection) {
       res.render('login');
     }
   });
-
 
 
   /**
