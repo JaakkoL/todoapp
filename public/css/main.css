@@ -126,6 +126,7 @@ input:focus,input:active{border-bottom:1px solid #f1c40f;outline:none !important
 .btn:hover{background-color:#2ecc71}.btn:hover[disabled="disabled"]{background-color:#bdc3c7}
 .btn:active{position:relative;top:1px}
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html,body{height:100%;position:relative}
 body{background:#ecf0f1;position:relative}
 .appWrapper{min-width:980px}
 html{font-size:62.5%}
@@ -153,3 +154,6 @@ h1,h2,h3,h4,h5,h6{font-family:'Gloria Hallelujah',cursive;font-weight:normal}
 .login-wrapper{margin:0 auto;width:800px}
 .login-form-wrapper,.register-form-wrapper{float:left;padding:0 40px;width:400px}
 .register-form-wrapper .back{text-align:center}
+.left-panel{background:#ecf0f1;top:0;bottom:0;position:absolute;width:300px;overflow-y:scroll}
+.list-view{float:left;width:33%}
+.task-view{float:left;width:33%}

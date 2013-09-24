@@ -34,6 +34,6 @@ require([
   'controllers/toolbar',
 ], function($, bacon, _, toolbar) {
 
-  toolbar.init($('#toolbar'));
+  toolbar.init($('#tools'));
 
 })
