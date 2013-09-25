@@ -1,0 +1,12 @@
+<nav id="left-panel-nav" class="left-panel-nav">
+    <a data-target="categories" class="active">My Content</a>
+    <a data-target="add-list">&plus; Add List</a>
+</nav>
+<div class="content clearfix">
+    <div id="categories" class="categories">
+        <i>Categories here.</i>
+    </div>
+    <div id="add-list" class="add-list">
+        <i>Loading...</i>
+    </div>
+</div>

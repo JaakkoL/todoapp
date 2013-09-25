@@ -1,1 +1,5 @@
-<button data-action="add-new-list" class="btn">Add new list</button>
+<ul class="lists-listing">
+  {{#each data}}
+    <li>{{this.name}} <span class="category-{{this.categoryId}}">{{this.categoryId}}</span></li>
+  {{/each}}
+</ul>

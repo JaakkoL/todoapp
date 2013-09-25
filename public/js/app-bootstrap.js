@@ -31,9 +31,11 @@ require([
   'jquery',
   'bacon',
   'lodash',
-  'controllers/toolbar',
-], function($, bacon, _, toolbar) {
+  'controllers/left-panel',
+  'controllers/list',
+], function($, bacon, _, leftPanel, list) {
 
-  toolbar.init($('#tools'));
+  leftPanel.init($('#left-panel'));
+  list.init($('#lists-view'));
 
 })

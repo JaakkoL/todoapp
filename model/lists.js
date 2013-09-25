@@ -6,7 +6,8 @@
 
 function ListsDAO(connection) {
 
-  this.addList(data, callback) {
+  // Adds a new list entry.
+  this.addList = function(data, callback) {
 
     var name = data.name,
         categoryId = (data.categoryId !== undefined) ? data.categoryId : 0,
@@ -17,13 +18,21 @@ function ListsDAO(connection) {
                 ')';
 
     connection.query(query, function(err, results) {
-        callback(err, results);
+      callback(err, results);
     });
-
   }
 
-  this.getList() {}
-  this.getAllLists() {
+  // Returns a certain list.
+  this.getList = function(id, callback) {
+    var query = 'SELECT * FROM list where listId = ' + connection.escape(id);
+
+    connection.query(query, function(err, results) {
+        callback(err, results);
+    });
+  }
+
+  // Returns all lists.
+  this.getAllLists = function(callback) {
     var query = 'SELECT * FROM list';
 
     connection.query(query, function(err, results) {
@@ -31,7 +40,18 @@ function ListsDAO(connection) {
     });
   }
 
-  this.updateList() {}
-  this.deleteList() {}
+  // Updates a list.
+  this.updateList = function() {}
+
+  // Deletes a list with a specified id.
+  this.removeList = function(listId, callback) {
+    var query = 'DELETE FROM list where listID = ' + connection.escape(listId);
+
+    connection.query(query, function(err, results) {
+        callback(err, results);
+    });
+  }
 
 }
+
+module.exports.ListsDAO = ListsDAO;

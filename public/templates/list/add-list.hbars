@@ -1,6 +1,4 @@
 <form id="listForm" class="label-hidden">
-    <h2 class="form-title">Add new list</h2>
-
     <div class="form-element">
         <label>Name</label>
         <input class="name" type="text" placeholder="list name" />
@@ -12,6 +10,6 @@
     </div>
 
     <div class="form-buttons">
-        <button data-action="add-list" class="btn">Add list</button>
+        <button data-action="add-new-list" class="btn">Add list</button>
     </div>
 </form>

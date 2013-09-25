@@ -5,11 +5,13 @@
  */
 
 var SessionHandler = require('./session'),
+    ListHandler = require('./list'),
     ErrorHandler = require('./error').errorHandler;
 
 module.exports = exports = function(app, connection) {
 
-  var sessions = new SessionHandler(connection);
+  var sessions = new SessionHandler(connection),
+      list = new ListHandler(connection);
 
   // Checks if users is logged in or not.
   app.use(sessions.isLoggedInMiddleware);
@@ -34,13 +36,25 @@ module.exports = exports = function(app, connection) {
    */
 
   // Registration callback
-  app.post('/register', sessions.handleRegistration)
+  app.post('/register', sessions.handleRegistration);
 
   // Login callback.
-  app.post('/login', sessions.handleLogin)
+  app.post('/login', sessions.handleLogin);
 
   // Logout callback.
-  app.post('/logout', sessions.handleLogout)
+  app.post('/logout', sessions.handleLogout);
+
+  // Add list.
+  app.post('/list/add', list.addList);
+
+  // Update list.
+  app.post('/list/update', list.updateList);
+
+  // Delete list.
+  app.post('/list/delete', list.removeList);
+
+  // Get list.
+  app.post('/list/all', list.getAllLists);
 
   // Set up error handling
   app.use(ErrorHandler);
