@@ -32,10 +32,12 @@ require([
   'bacon',
   'lodash',
   'controllers/left-panel',
-  'controllers/list',
-], function($, bacon, _, leftPanel, list) {
+  'controllers/middle-panel',
+  'controllers/right-panel'
+], function($, bacon, _, leftPanel, middlePanel, rightPanel) {
 
   leftPanel.init($('#left-panel'));
-  list.init($('#lists-view'));
+  middlePanel.init($('#middle-panel'));
+  rightPanel.init($('#right-panel'));
 
 })

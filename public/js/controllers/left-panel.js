@@ -1,14 +1,16 @@
 define([
   'hbars!templates/left-panel',
   'controllers/add-list',
+  'controllers/toolbar',
   'lodash'
-], function (tplLeftPanel, addList, _) {
+], function (tplLeftPanel, addList, toolbar, _) {
   var element;
 
   function render(elem) {
     element = elem;
     element.html(tplLeftPanel());
     addList.init($('#add-list'));
+    toolbar.init($('#toolbar'));
 
     bindEvents();
   }

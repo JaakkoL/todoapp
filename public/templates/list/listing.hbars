@@ -1,5 +1,5 @@
-<ul class="lists-listing">
+<ul>
   {{#each data}}
-    <li>{{this.name}} <span class="category-{{this.categoryId}}">{{this.categoryId}}</span></li>
+
   {{/each}}
 </ul>
