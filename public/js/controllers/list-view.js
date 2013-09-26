@@ -1,6 +1,6 @@
 define([
-  'hbars!templates/list/listing',
-  'hbars!templates/list/list-element',
+  'hbs!templates/list/listing',
+  'hbs!templates/list/list-element',
   'lodash'
 ], function (tplListing, tplListElement, _) {
   var element;
@@ -36,7 +36,7 @@ define([
   }
 
   function addNewItem(item) {
-    console.log(item);
+    element.find('.no-lists').remove();
     element.find('ul').prepend(tplListElement(item));
   }
 

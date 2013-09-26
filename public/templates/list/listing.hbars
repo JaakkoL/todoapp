@@ -1,5 +1,8 @@
 <ul>
-  {{#each data}}
-
-  {{/each}}
+{{#each data}}
+  {{> templates_list_list-element}}
+{{/each}}
 </ul>
+{{#unless data}}
+  <p class="no-lists">Start by adding a new list from the left panel.</p>
+{{/unless}}

@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/toolbar',
+  'hbs!templates/toolbar',
   'lib/helpers',
   'bjq'
 ], function(template, helpers, bjq) {

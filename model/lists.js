@@ -33,7 +33,7 @@ function ListsDAO(connection) {
 
   // Returns all lists.
   this.getAllLists = function(callback) {
-    var query = 'SELECT * FROM list';
+    var query = 'SELECT * FROM list ORDER BY created DESC;';
 
     connection.query(query, function(err, results) {
         callback(err, results);

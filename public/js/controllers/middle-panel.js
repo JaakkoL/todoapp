@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/middle-panel',
+  'hbs!templates/middle-panel',
   'controllers/list-view'
 ], function (tplMiddlePanel, listView) {
   var element;

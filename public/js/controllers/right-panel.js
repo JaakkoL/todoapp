@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/right-panel'
+  'hbs!templates/right-panel'
 ], function (tplRightPanel) {
   var element;
 

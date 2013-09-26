@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/notification',
+  'hbs!templates/notification',
   'lodash'
 ], function (template, _) {
   var errorShown = false

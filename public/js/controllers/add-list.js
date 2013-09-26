@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/list/add-list',
+  'hbs!templates/list/add-list',
   'bjq',
   'controllers/list-view'
 ], function (tplAdd, bjq, listView) {
@@ -31,13 +31,21 @@ define([
     var addPending = addRequest.awaiting(addResponse);
 
     addResponse.onValue(function(response) {
-      listView.add(response);
+      clearForm(element.find('form'));
+      $('#left-panel-nav').find('a').first().trigger('click');
+      listView.add(response.data);
     });
 
     addResponse.onError(function(err) {
       // TODO: Proper error handling.
       console.log('adding new list failed');
       console.log(err);
+    });
+  }
+
+  function clearForm(form) {
+    form.find('input').each(function(i, el) {
+      $(el).val('');
     });
   }
 

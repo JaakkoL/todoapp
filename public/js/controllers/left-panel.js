@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/left-panel',
+  'hbs!templates/left-panel',
   'controllers/add-list',
   'controllers/toolbar',
   'lodash'

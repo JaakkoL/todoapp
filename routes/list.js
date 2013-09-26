@@ -12,8 +12,8 @@ function ListHandler(connection) {
   this.addList = function(req, res) {
     // TODO: Get data from body.
     var data = {
-      name: 'holy mother',
-      categoryId: 666
+      name: req.body.name
+      //categoryId: TODO
     }
 
     lists.addList(data, function(err, results) {
@@ -23,7 +23,13 @@ function ListHandler(connection) {
 
       console.log(results);
 
-      return res.json(200, {'type' : 'success', 'message' : 'New list added successfully.'});
+      var ret = {
+        listId : results.insertId,
+        categoryId : 0,
+        name : req.body.name
+      }
+
+      return res.json(200, {'type' : 'success', 'data' : ret});
     })
   }
 

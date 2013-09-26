@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/login',
+  'hbs!templates/login',
   'lib/helpers',
   'bjq'
 ], function(template, helpers, bjq) {

@@ -1,5 +1,5 @@
 define([
-  'hbars!templates/register',
+  'hbs!templates/register',
   'bjq'
 ], function(template, bjq) {
 
