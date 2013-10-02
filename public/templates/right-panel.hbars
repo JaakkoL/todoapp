@@ -1,1 +1,8 @@
-RIGHT PANEL
+<div class="tasks-form">
+    <input id="add-new-task" data-listId="{{listId}}" class="add-new-task" type="text" placeholder="Add new task" />
+    <ul class="tasks-list">
+      {{#each tasks}}
+        {{> templates_task_task-element}}
+      {{/each}}
+    </ul>
+</div>

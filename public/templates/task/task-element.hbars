@@ -1,0 +1,9 @@
+<li data-taskid={{ this.taskId }}>
+    <div class="view">
+      <input class="status" type="checkbox"  />
+      <span class="label">&nbsp;{{ this.text }}</span>
+
+    </div>
+
+  <input class="edit" type="text" value="{{ this.text }}" />
+</li>

@@ -6,12 +6,14 @@
 
 var SessionHandler = require('./session'),
     ListHandler = require('./list'),
+    TaskHandler = require('./task'),
     ErrorHandler = require('./error').errorHandler;
 
 module.exports = exports = function(app, connection) {
 
   var sessions = new SessionHandler(connection),
-      list = new ListHandler(connection);
+      list = new ListHandler(connection),
+      task = new TaskHandler(connection);
 
   // Checks if users is logged in or not.
   app.use(sessions.isLoggedInMiddleware);
@@ -53,8 +55,14 @@ module.exports = exports = function(app, connection) {
   // Delete list.
   app.post('/list/delete', list.removeList);
 
-  // Get list.
+  // Get lists tasks.
   app.post('/list/all', list.getAllLists);
+
+  // Get list.
+  app.post('/list/tasks', task.getTasks);
+
+  // Add task.
+  app.post('/task/add', task.addTask);
 
   // Set up error handling
   app.use(ErrorHandler);

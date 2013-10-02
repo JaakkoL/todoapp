@@ -1,2 +1,2 @@
 <div id="list-filter">TODO: Filter/sort</div>
-<div id="list-listing"></div>
+<div id="list-listing" class="list-listing"></div>

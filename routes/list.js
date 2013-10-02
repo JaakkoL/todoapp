@@ -26,6 +26,7 @@ function ListHandler(connection) {
       var ret = {
         listId : results.insertId,
         categoryId : 0,
+        categoryName : 'Uncategorized',
         name : req.body.name
       }
 
@@ -39,7 +40,6 @@ function ListHandler(connection) {
       if (err) {
         return res.json(500, {'type' : 'error', 'message' : 'Couldn\'t remove the list (' + listId + ').'});
       }
-      console.log(results);
       return res.json(200, {'type' : 'success', 'message' : 'List deleted.'});
     })
   }
@@ -56,7 +56,6 @@ function ListHandler(connection) {
       if (err) {
         return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
       }
-      console.log(results);
       return res.json(200, {'type' : 'success', 'data' : results});
 
     })

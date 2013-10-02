@@ -6,9 +6,13 @@ function validEmail(x) {
 }
 
 function setVisibility(element, visible) {
-  element.toggle(visible)
+  element.toggle(visible);
 }
 
 function setEnabled(element, enabled) {
-  element.attr("disabled", !enabled)
+  element.attr("disabled", !enabled);
+}
+
+function enterKey(e) {
+  return e.keyCode == 13;
 }

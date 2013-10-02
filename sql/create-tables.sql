@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: eu-cdbr-west-01.cleardb.com (MySQL 5.5.29-log)
-# Database: heroku_798daeacbebf007
-# Generation Time: 2013-09-16 18:13:28 +0000
+# Host: 127.0.0.1 (MySQL 5.6.10)
+# Database: todoapp
+# Generation Time: 2013-10-01 20:55:17 +0000
 # ************************************************************
 
 
@@ -84,7 +84,7 @@ CREATE TABLE `task` (
   `editedby` int(11) DEFAULT NULL COMMENT 'User who last edited the item.',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Task creation timestamp',
   `modified` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when task was last modified.',
-  `status` varchar(50) DEFAULT NULL COMMENT 'Tasks status.',
+  `status` int(1) DEFAULT '0' COMMENT 'Tasks status.',
   `text` varchar(255) DEFAULT NULL COMMENT 'Task contents.',
   PRIMARY KEY (`taskId`),
   KEY `lid` (`listId`)

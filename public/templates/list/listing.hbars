@@ -1,4 +1,4 @@
-<ul>
+<ul class="list-items">
 {{#each data}}
   {{> templates_list_list-element}}
 {{/each}}

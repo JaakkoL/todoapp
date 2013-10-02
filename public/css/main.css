@@ -159,4 +159,14 @@ h1,h2,h3,h4,h5,h6{font-family:'Gloria Hallelujah',cursive;font-weight:normal}
 .left-panel-nav{margin:20px 0;text-align:center}.left-panel-nav a{color:#bdc3c7;cursor:pointer;display:inline-block;margin:0 5px}.left-panel-nav a.active{border-bottom:2px solid;color:#333;cursor:default}
 .left-panel-nav a:hover{color:#000}
 .middle-panel{padding:20px;margin-left:300px;margin-right:400px;background-color:#ccc}
+.list-listing ul{list-style:none;margin:0;padding:0}
+.list-listing li{background-color:#fff;border:1px solid #dedede;cursor:pointer;margin-bottom:3px;padding:10px}.list-listing li:hover{background-color:#dedede}
+.list-listing li.selected{background-color:#ccc}
+.list-listing li .category{background-color:green;border-radius:12px;color:#fff;display:inline-block;float:right;padding:0 20px}
 .right-panel{float:right;padding:20px;width:400px}
+.tasks-form .add-new-task,.tasks-form .edit{font-size:2rem;background-color:#fff;padding:10px 5px;border-bottom:1px dotted #dedede;max-width:100%}
+.tasks-form .tasks-list{list-style:none;margin:0;padding:0}.tasks-form .tasks-list li{background-color:#fff;border-bottom:1px dotted #dedede;position:relative}.tasks-form .tasks-list li.editing .edit{display:block}
+.tasks-form .tasks-list li.editing .status{visibility:hidden}
+.tasks-form .tasks-list span,.tasks-form .tasks-list .edit{background-color:#fff;cursor:pointer;display:block;font-size:2rem;line-height:2rem;margin:0 0 0 30px;padding:10px 5px}
+.tasks-form .tasks-list .status{color:inherit;float:left;margin:12px 9px}
+.tasks-form .tasks-list .edit{display:none;background:#ccc;position:absolute;top:0;height:4rem;right:0;left:0;width:auto}

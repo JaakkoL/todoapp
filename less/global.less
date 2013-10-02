@@ -332,6 +332,39 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #ccc;
 }
 
+.list-listing {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    background-color: #fff;
+    border: 1px solid #dedede;
+    cursor: pointer;
+    margin-bottom: 3px;
+    padding: 10px;
+
+    &:hover {
+      background-color: #dedede;
+    }
+
+    &.selected {
+      background-color: #ccc;
+    }
+
+    .category {
+      background-color: green;
+      border-radius: (12px);
+      color: #fff;
+      display: inline-block;
+      float: right;
+      padding: 0 20px;
+    }
+  }
+}
+
 /* =============================================================================
    Right panel.
    ========================================================================== */
@@ -340,4 +373,66 @@ h1, h2, h3, h4, h5, h6 {
   float: right;
   padding: @panel-padding;
   width: @right-panel-width;
+}
+
+.tasks-form {
+  .add-new-task,
+  .edit {
+    font-size: 2rem;
+    background-color: #fff;
+    padding: 10px 5px;
+    border-bottom: 1px dotted #dedede;
+    max-width: 100%;
+  }
+
+  .tasks-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      background-color: #fff;
+      border-bottom: 1px dotted #dedede;
+      position: relative;
+
+      &.editing {
+        .edit {
+          display: block;
+        }
+
+        .status {
+          visibility: hidden;
+        }
+      }
+    }
+
+    span,
+    .edit {
+      background-color: #fff;
+      cursor: pointer;
+      display: block;
+      font-size: 2rem;
+      line-height: 2rem;
+      margin: 0 0 0 30px;
+      padding: 10px 5px;
+    }
+
+    .status {
+      color: inherit;
+      float: left;
+      margin: 12px 9px;
+    }
+
+    .edit {
+      display: none;
+      background: #ccc;
+      position: absolute;
+      top: 0;
+      height: 4rem;
+      right: 0;
+      left: 0;
+      width: auto;
+    }
+
+  }
 }

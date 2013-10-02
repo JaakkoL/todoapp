@@ -1,1 +1,1 @@
-<li>{{this.name}} <span class="category-{{this.categoryId}}">{{this.categoryId}}</span></li>
+<li data-listid="{{this.listId}}">{{this.name}} <span class="category category-{{this.categoryId}}">{{this.categoryId}}</span></li>

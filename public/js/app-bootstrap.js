@@ -38,12 +38,18 @@ require([
   'bacon',
   'lodash',
   'controllers/left-panel',
-  'controllers/middle-panel',
-  'controllers/right-panel'
-], function($, bacon, _, leftPanel, middlePanel, rightPanel) {
+  'controllers/middle-panel'
+], function($, bacon, _, leftPanel, middlePanel) {
+
+  Handlebars.registerHelper('if_eq', function(a, b, opts) {
+    if (a == b) {
+      return opts.fn(this);
+    } else {
+      return opts.inverse(this);
+    }
+  });
 
   leftPanel.init($('#left-panel'));
   middlePanel.init($('#middle-panel'));
-  rightPanel.init($('#right-panel'));
 
 })
