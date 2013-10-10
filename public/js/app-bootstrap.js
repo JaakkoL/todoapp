@@ -6,7 +6,8 @@ require({
 
   hbs : {
     templateExtension : 'hbars',
-    disableI18n : true
+    disableI18n : true,
+    helperPathCallback: function(name) { return 'templates/helpers/' + name; }
   },
 
   paths: {
@@ -40,14 +41,6 @@ require([
   'controllers/left-panel',
   'controllers/middle-panel'
 ], function($, bacon, _, leftPanel, middlePanel) {
-
-  Handlebars.registerHelper('if_eq', function(a, b, opts) {
-    if (a == b) {
-      return opts.fn(this);
-    } else {
-      return opts.inverse(this);
-    }
-  });
 
   leftPanel.init($('#left-panel'));
   middlePanel.init($('#middle-panel'));

@@ -13,7 +13,7 @@ function TaskHandler(connection) {
   this.addTask = function(req, res) {
      var data = {
        listId : req.body.listId,
-       uid : 666, // TODO: Get current users uid.
+       uid : req.uid,
        text : req.body.text
      };
 
@@ -28,11 +28,49 @@ function TaskHandler(connection) {
      })
    }
 
+  this.removeTask = function(req, res) {
+     var data = {
+       taskId : req.body.taskId,
+       uid : req.uid
+     };
+
+     tasks.removeTask(data, function(err, results) {
+       if (err) {
+         console.log(err)
+         return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
+       }
+
+       return res.json(200, {'type' : 'success', 'data' : results});
+
+     })
+   }
+
+  this.updateTask = function(req, res) {
+     var data = {
+       taskId : req.body.taskId,
+       text : req.body.text,
+       status : req.body.status,
+       uid : req.uid
+     };
+
+     tasks.updateTask(data, function(err, results) {
+       if (err) {
+         console.log(err)
+         return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
+       }
+
+       return res.json(200, {'type' : 'success', 'data' : results});
+
+     })
+   }
 
   this.getTasks = function(req, res) {
-    var listId = req.body.listId;
+     var data = {
+       listId : req.body.listId,
+       uid : req.uid
+     };
 
-    tasks.getTasks(listId, function(err, results) {
+    tasks.getTasks(data, function(err, results) {
       if (err) {
         return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
       }

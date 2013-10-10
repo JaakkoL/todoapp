@@ -1,8 +1,8 @@
 <li data-taskid={{ this.taskId }}>
     <div class="view">
-      <input class="status" type="checkbox"  />
-      <span class="label">&nbsp;{{ this.text }}</span>
-
+      <input class="status" type="checkbox" {{#if_eq this.status 1}}checked{{/if_eq}} />
+      <span class="label">{{ this.text }}</span>
+      <a class="delete">&times;</a>
     </div>
 
   <input class="edit" type="text" value="{{ this.text }}" />

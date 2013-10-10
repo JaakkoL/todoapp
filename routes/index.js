@@ -64,6 +64,12 @@ module.exports = exports = function(app, connection) {
   // Add task.
   app.post('/task/add', task.addTask);
 
+  // Remove task.
+  app.post('/task/delete', task.removeTask);
+
+  // Update task.
+  app.post('/task/update', task.updateTask);
+
   // Set up error handling
   app.use(ErrorHandler);
 }

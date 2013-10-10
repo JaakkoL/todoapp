@@ -19,7 +19,7 @@ function SessionHandler(connection) {
 
         // If session exists, pass the user id to the request.
         if (!err && uid) {
-          req.uid= uid;
+          req.uid = uid;
         }
 
        // Continue request.
