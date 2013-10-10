@@ -12,7 +12,8 @@ function ListHandler(connection) {
   this.addList = function(req, res) {
     // TODO: Get data from body.
     var data = {
-      name: req.body.name
+      name: req.body.name,
+      creator: req.uid
       //categoryId: TODO
     }
 
@@ -44,15 +45,12 @@ function ListHandler(connection) {
     })
   }
 
-
-
-
   this.updateList = function(req, res) {
     return res.json(200, {'type' : 'success', 'message' : 'Needs to be implemented.'});
   }
 
   this.getAllLists = function(req, res) {
-    lists.getAllLists(function(err, results) {
+    lists.getAllLists(req.uid, function(err, results) {
       if (err) {
         return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
       }

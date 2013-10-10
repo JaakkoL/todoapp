@@ -9,22 +9,37 @@ function ListsDAO(connection) {
   // Adds a new list entry.
   this.addList = function(data, callback) {
 
-    var name = data.name,
-        categoryId = (data.categoryId !== undefined) ? data.categoryId : 0,
-        query = 'INSERT INTO list (name, categoryId)' +
-                'VALUES (' +
-                  connection.escape(name) + ', ' +
-                  connection.escape(categoryId) +
-                ')';
+    var name = connection.escape(data.name),
+        categoryId = connection.escape((data.categoryId !== undefined) ? data.categoryId : 0),
+        creator = connection.escape(data.creator),
+        query = 'INSERT INTO list (name, categoryId) ' +
+                'VALUES (' + name + ', ' + categoryId + ')';
 
+    console.log(creator);
     connection.query(query, function(err, results) {
-      callback(err, results);
+      console.log(results);
+
+      var accessQuery = 'INSERT INTO access (uid, listId, role) ' +
+                        'VALUES (' + creator + ', ' + results.insertId + ', "creator")';
+
+      connection.query(accessQuery, function(error, res) {
+        console.log(error)
+        callback(error, res);
+      });
+
     });
   }
 
   // Returns a certain list.
-  this.getList = function(id, callback) {
-    var query = 'SELECT * FROM list where listId = ' + connection.escape(id);
+  this.getList = function(data, callback) {
+
+    var listId = connection.escape(data.listId),
+        uid = connection.escape(data.uid);
+
+    var query = 'SELECT list.listId, list.categoryId, list.name ' +
+                'FROM list LEFT JOIN access ON (list.listId = access.listId) ' +
+                'WHERE access.uid = ' + uid + ' AND list.listId = ' + listId + ' ' +
+                'ORDER BY created DESC;'
 
     connection.query(query, function(err, results) {
         callback(err, results);
@@ -32,8 +47,11 @@ function ListsDAO(connection) {
   }
 
   // Returns all lists.
-  this.getAllLists = function(callback) {
-    var query = 'SELECT * FROM list ORDER BY created DESC;';
+  this.getAllLists = function(uid, callback) {
+    var query = 'SELECT list.listId, list.categoryId, list.name ' +
+                'FROM list LEFT JOIN access ON (list.listId = access.listId) ' +
+                'WHERE access.uid = ' + connection.escape(uid) + ' ' +
+                'ORDER BY created DESC;'
 
     connection.query(query, function(err, results) {
         callback(err, results);

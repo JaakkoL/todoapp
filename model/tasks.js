@@ -27,8 +27,7 @@ function TasksDAO(connection) {
      var taskId = connection.escape(data.taskId),
          creator = connection.escape(data.uid);
 
-     var query = 'DELETE FROM task WHERE taskId = ' + taskId + ' AND creator = ' + creator;
-     console.log(query);
+     var query = 'DELETE FROM task WHERE taskId = ' + taskId;
 
     connection.query(query, function(err, results) {
       callback(err, results);
@@ -41,11 +40,12 @@ function TasksDAO(connection) {
      var taskId = connection.escape(data.taskId),
          text = connection.escape(data.text),
          status = connection.escape(data.status),
-         creator = connection.escape(data.uid);
+         uid = connection.escape(data.uid);
 
-      var query = 'UPDATE task SET text = ' + text + ', status = ' + status + ', modified = CURRENT_TIMESTAMP WHERE taskId = ' + taskId + ' AND creator = ' + creator;
-//     var query = 'DELETE FROM task WHERE taskId = ' + taskId + ' AND creator = ' + creator;
-     console.log(query);
+         console.log(taskId)
+
+     var query = 'UPDATE task SET text = ' + text + ', status = ' + status + ', editedby = ' + uid + ', modified = CURRENT_TIMESTAMP ' +
+                 'WHERE taskId = 30;';
 
     connection.query(query, function(err, results) {
       callback(err, results);
@@ -55,9 +55,12 @@ function TasksDAO(connection) {
   // Returns all tasks related to certain list.
   this.getTasks = function(data, callback) {
     var listId = connection.escape(data.listId),
-        creator = connection.escape(data.uid);
+        uid = connection.escape(data.uid);
 
-    var query = 'SELECT * FROM task WHERE listId = ' + listId + ' AND creator = ' + creator + ' ORDER BY created ASC;';
+    var query = 'SELECT * FROM task ' +
+                'INNER JOIN access ON task.listId = access.listId ' +
+                'WHERE task.listId = ' + listId + ' AND uid = ' + uid + ' ' +
+                'ORDER BY created ASC;';
 
     connection.query(query, function(err, results) {
         callback(err, results);
