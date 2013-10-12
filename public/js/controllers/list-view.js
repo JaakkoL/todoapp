@@ -2,9 +2,10 @@ define([
   'hbs!templates/list/listing',
   'hbs!templates/list/list-element',
   'hbs!templates/list/edit',
+  'hbs!templates/list/share',
   'controllers/right-panel',
   'lodash'
-], function (tplListing, tplListElement, tplEdit, rightPanel, _) {
+], function (tplListing, tplListElement, tplEdit, tplShare, rightPanel, _) {
   var element;
 
   function render(elem) {
@@ -31,6 +32,18 @@ define([
              listId = $this.parent('li').data('listid');
 
          showEditView(listId);
+       });
+    });
+
+    listItems.find('.share').not('.processed').each(function(i, el) {
+      $(el).addClass('processed').on('click', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+
+         var $this = $(this),
+             listId = $this.parent('li').data('listid');
+
+         showShareView(listId);
        });
     });
 
@@ -112,10 +125,6 @@ define([
       modal.fadeIn(300);
     })
 
-    function closeModal(modal) {
-      modal.fadeOut(300, function() { modal.remove(); });
-    }
-
     function bindEditEvents(modal) {
       // Cancel.
       modal.find('[data-action="cancel"]').on('click', function(e) {
@@ -175,6 +184,74 @@ define([
     }
   }
 
+  function showShareView(listId) {
+    getListContributors(listId).done(function(data) {
+      data.data['listId'] = listId;
+      $('body').append(tplShare(data.data));
+      console.log(data.data);
+      var modal = $('#modal');
+      bindShareEvents(modal);
+      modal.fadeIn(300);
+
+      var addContributor = modal.find('#add-contributor'),
+          addContributorStream = addContributor.asEventStream('keyup')
+                                  .filter(enterKey).map(function(e) { return $(e.target).val(); }),
+          contributorsList = modal.find('.contributors-list');
+
+          addContributorStream.onValue(function(email) {
+            addContributor.val('');
+
+            addNewContributor(listId, email).done(function(response) {
+              console.log(response)
+              console.log('response')
+              contributorsList.append('<li data-uid="' + response.data + '"><span class="email">' + email + '</span> <span class="role">contributor</span></li>');
+            }).fail(function(err) {
+              var options = {
+                type : err.responseJSON.type,
+                message : err.responseJSON.message,
+                autoRemove : true
+              }
+
+              notification.show(options);
+            });
+
+          });
+    })
+
+    function addNewContributor(listId, email) {
+        var deferred = $.Deferred();
+        var addRequest = Bacon.once({
+          type: 'post',
+          url: 'list/contributors/add',
+          data: {listId : listId, email : email}
+        }).ajax();
+
+        addRequest.onValue(function(data) {
+          deferred.resolve(data);
+        })
+
+        addRequest.onError(function(err) {
+          console.log(err);
+          deferred.reject(err);
+        })
+
+        return deferred;
+      }
+
+    function bindShareEvents(modal) {
+      // Cancel.
+      modal.find('[data-action="cancel"]').on('click', function(e) {
+        e.preventDefault();
+        closeModal(modal);
+      });
+
+    }
+  }
+
+  function closeModal(modal) {
+    modal.fadeOut(300, function() { modal.remove(); });
+  }
+
   function getListItem(listId) {
     var deferred = $.Deferred();
     var listingRequest = Bacon.once({
@@ -188,6 +265,25 @@ define([
     })
 
     listingRequest.onError(function(err) {
+      deferred.reject(err);
+    })
+
+    return deferred;
+  }
+
+  function getListContributors(listId) {
+    var deferred = $.Deferred();
+    var contributorsRequest = Bacon.once({
+      type: 'post',
+      url: 'list/contributors',
+      data: {listId : listId}
+    }).ajax();
+
+    contributorsRequest.onValue(function(data) {
+      deferred.resolve(data);
+    })
+
+    contributorsRequest.onError(function(err) {
       deferred.reject(err);
     })
 

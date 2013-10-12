@@ -10,6 +10,7 @@
                 <label>Category</label>
                 <input class="category" type="text" placeholder="category" disabled="true" />
             </div>
+
         </div>
 
         <div class="modal-actions">

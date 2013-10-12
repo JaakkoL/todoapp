@@ -61,6 +61,12 @@ module.exports = exports = function(app, connection) {
   // Get a single.
   app.post('/list/get', list.getList);
 
+  // Get list contributors.
+  app.post('/list/contributors', list.getContributors);
+
+  // Add new contributor.
+  app.post('/list/contributors/add', list.addContributor);
+
   // Get list.
   app.post('/list/tasks', task.getTasks);
 

@@ -80,8 +80,53 @@ function ListsDAO(connection) {
     connection.query(query, function(err, results) {
       callback(err, results);
     });
+  }
+
+  // Returns users for a list.
+  this.getContributors = function(data, callback) {
+    var uid = connection.escape(data.uid),
+        listId = connection.escape(data.listId);
+
+    // TODO: Check user requesting has access to the list.
+    var query = 'SELECT u.uid, u.email, a.role ' +
+                'FROM user u ' +
+                'JOIN access a on a.uid = u.uid ' +
+                'WHERE a.listId = ' + listId + ';'
+
+    connection.query(query, function(err, results) {
+      callback(err, results);
+    });
+  }
+
+  // Adds new contributor for a list.
+  this.addContributor = function(data, callback) {
+    var uid = connection.escape(data.uid),
+        listId = connection.escape(data.listId),
+        email = connection.escape(data.email),
+        role = 'contributor';
 
 
+    // First we get users uid.
+    var query = 'SELECT uid FROM user WHERE email = ' + email + ';';
+
+    connection.query(query, function(err, results) {
+      if (results.length === 0) {
+        callback(new Error("User not found."), results);
+      }
+      else {
+        var contUid = results[0].uid,
+            query = 'INSERT INTO access (uid, listId, role) ' +
+                    'VALUES (' + contUid + ', ' + listId + ', "' + role + '");';
+
+        console.log(query);
+
+        connection.query(query, function(err, results) {
+          callback(err, contUid);
+        });
+
+      }
+
+    });
   }
 
 }

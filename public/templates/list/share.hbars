@@ -1,0 +1,22 @@
+<div id="modal" class="modal-background" data-listid="{{listId}}">
+    <div class="modal-wrapper">
+
+        <div class="modal-content">
+            <ul class="contributors-list">
+                {{#each this}}
+                  <li data-uid="{{uid}}"><span class="email">{{this.email}}</span><span class="role">{{role}}</span></li>
+                {{/each}}
+            </ul>
+
+            <div class="form-element">
+                <label>Add contributor</label>
+                <input id="add-contributor" class="contributor" type="text" placeholder="email" />
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+            <button data-action="cancel" class="btn cancel">Close</button>
+        </div>
+    </div>
+</div>

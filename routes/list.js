@@ -61,7 +61,7 @@ function ListHandler(connection) {
   this.getAllLists = function(req, res) {
     lists.getAllLists(req.uid, function(err, results) {
       if (err) {
-        return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
+        return res.json(500, {'type' : 'error', 'message' : err.message});
       }
       return res.json(200, {'type' : 'success', 'data' : results});
 
@@ -76,7 +76,41 @@ function ListHandler(connection) {
 
     lists.getList(data, function(err, results) {
       if (err) {
-        return res.json(500, {'type' : 'error', 'message' : 'Something went wrong.'});
+        return res.json(500, {'type' : 'error', 'message' : err.message});
+      }
+      return res.json(200, {'type' : 'success', 'data' : results});
+
+    })
+  }
+
+  this.getContributors = function(req, res) {
+    var data = {
+      uid : req.uid,
+      listId : req.body.listId
+    };
+
+    lists.getContributors(data, function(err, results) {
+      if (err) {
+        return res.json(500, {'type' : 'error', 'message' : err.message});
+      }
+      return res.json(200, {'type' : 'success', 'data' : results});
+
+    })
+  }
+
+  this.addContributor = function(req, res) {
+    var data = {
+      uid : req.uid,
+      listId : req.body.listId,
+      email : req.body.email
+    };
+
+    lists.addContributor(data, function(err, results) {
+      if (err) {
+        if (err.code == 'ER_DUP_ENTRY') {
+          err.message = 'User is already contributing.';
+        }
+        return res.json(500, {'type' : 'error', 'message' : err.message});
       }
       return res.json(200, {'type' : 'success', 'data' : results});
 
