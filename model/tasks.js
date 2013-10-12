@@ -42,10 +42,8 @@ function TasksDAO(connection) {
          status = connection.escape(data.status),
          uid = connection.escape(data.uid);
 
-         console.log(taskId)
-
      var query = 'UPDATE task SET text = ' + text + ', status = ' + status + ', editedby = ' + uid + ', modified = CURRENT_TIMESTAMP ' +
-                 'WHERE taskId = 30;';
+                 'WHERE taskId = ' + taskId + ';';
 
     connection.query(query, function(err, results) {
       callback(err, results);

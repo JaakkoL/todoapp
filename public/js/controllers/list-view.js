@@ -149,6 +149,27 @@ define([
       // Save.
       modal.find('[data-action="save"]').on('click', function(e) {
         e.preventDefault();
+        var listId = modal.data('listid');
+
+        var data = {
+          name : modal.find('input.name').val(),
+          categoryId : 0,
+          listId : listId
+        }
+
+        updateListItem(data).done(function(response) {
+          var listing = $('#list-listing').find('[data-listid="' + listId + '"]');
+          listing.find('.name').text(data.name);
+          listing.find('.category').text(data.categoryId);
+
+          closeModal(modal);
+          var options = {
+            type : response.type,
+            message : response.message,
+            autoRemove : true
+          }
+          notification.show(options);
+        });
       });
 
     }
@@ -186,6 +207,25 @@ define([
     })
 
     deleteRequest.onError(function(err) {
+      deferred.reject(err);
+    })
+
+    return deferred;
+  }
+
+  function updateListItem(data) {
+    var deferred = $.Deferred();
+    var updateRequest = Bacon.once({
+      type: 'post',
+      url: 'list/update',
+      data: data
+    }).ajax();
+
+    updateRequest.onValue(function(data) {
+      deferred.resolve(data);
+    })
+
+    updateRequest.onError(function(err) {
       deferred.reject(err);
     })
 

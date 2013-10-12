@@ -57,7 +57,18 @@ function ListsDAO(connection) {
   }
 
   // Updates a list.
-  this.updateList = function() {}
+  this.updateList = function(data, callback) {
+    var name = connection.escape(data.name),
+        categoryId = connection.escape(data.categoryId),
+        listId = connection.escape(data.listId);
+
+    var query = 'UPDATE list SET name = ' + name + ', categoryId = ' + categoryId + ', edited = CURRENT_TIMESTAMP ' +
+                'WHERE listId = ' + listId + ';';
+
+    connection.query(query, function(err, results) {
+      callback(err, results);
+    });
+  }
 
   // Deletes a list with a specified id.
   this.removeList = function(listId, callback) {
@@ -65,7 +76,7 @@ function ListsDAO(connection) {
     var query = 'DELETE FROM list WHERE listID = ' + connection.escape(listId) + ';';
     query += 'DELETE FROM task WHERE listID = ' + connection.escape(listId) + ';';
     query += 'DELETE FROM access WHERE listID = ' + connection.escape(listId) + ';';
-    console.log(query)
+
     connection.query(query, function(err, results) {
       callback(err, results);
     });

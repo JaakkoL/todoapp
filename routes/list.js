@@ -36,7 +36,6 @@ function ListHandler(connection) {
   }
 
   this.removeList = function(req, res) {
-    console.log(req.body.listId);
     lists.removeList(req.body.listId, function(err, results) {
       if (err) {
         return res.json(500, {'type' : 'error', 'message' : 'Couldn\'t remove the list (' + req.body.listId + ').'});
@@ -46,7 +45,17 @@ function ListHandler(connection) {
   }
 
   this.updateList = function(req, res) {
-    return res.json(200, {'type' : 'success', 'message' : 'Needs to be implemented.'});
+    var data = {
+      name : req.body.name,
+      categoryId : req.body.categoryId,
+      listId : req.body.listId
+    }
+    lists.updateList(data, function(err, results) {
+        if (err) {
+          return res.json(500, {'type' : 'error', 'message' : 'Couldn\'t update the list (' + req.body.listId + ').'});
+        }
+        return res.json(200, {'type' : 'success', 'message' : 'List updated.'});
+      })
   }
 
   this.getAllLists = function(req, res) {
