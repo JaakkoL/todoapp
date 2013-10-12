@@ -1,4 +1,4 @@
-<li data-taskid={{ this.taskId }}>
+<li data-taskid={{ this.taskId }} {{#if_eq this.status 1}}class="done"{{/if_eq}}>
     <div class="view">
       <input class="status" type="checkbox" {{#if_eq this.status 1}}checked{{/if_eq}} />
       <span class="label">{{ this.text }}</span>

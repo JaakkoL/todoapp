@@ -1,9 +1,10 @@
 define([
   'hbs!templates/list/listing',
   'hbs!templates/list/list-element',
+  'hbs!templates/list/edit',
   'controllers/right-panel',
   'lodash'
-], function (tplListing, tplListElement, rightPanel, _) {
+], function (tplListing, tplListElement, tplEdit, rightPanel, _) {
   var element;
 
   function render(elem) {
@@ -21,24 +22,39 @@ define([
   function bindEvents() {
     var listItems = element.find('.list-items li');
 
-    listItems.not('.processed').on('click', function(e) {
-      e.preventDefault();
-      var $this = $(this),
-          listId = $this.data('listid');
+    listItems.find('.edit').not('.processed').each(function(i, el) {
+      $(el).addClass('processed').on('click', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
 
-      $this.addClass('processed');
-      $this.siblings().removeClass('selected');
-      $this.addClass('selected');
+         var $this = $(this),
+             listId = $this.parent('li').data('listid');
 
-      loadListTasks(listId).done(function(response) {
-        console.log(response)
-        var data = {
-          tasks : response.data,
-          listId : listId
-        };
-        rightPanel.init($('#right-panel'), data);
+         showEditView(listId);
+       });
+    });
+
+    listItems.not('.processed').each(function(i, el) {
+      $(el).addClass('processed').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            listId = $this.data('listid');
+
+        $this.addClass('processed');
+        $this.siblings().removeClass('selected');
+        $this.addClass('selected');
+
+        loadListTasks(listId).done(function(response) {
+          console.log(response)
+          var data = {
+            tasks : response.data,
+            listId : listId
+          };
+          rightPanel.init($('#right-panel'), data);
+        });
       });
     });
+
   }
 
   // Gets all lists from database.
@@ -85,6 +101,95 @@ define([
       })
 
       return deferred;
+  }
+
+  function showEditView(listId) {
+    getListItem(listId).done(function(data) {
+      $('body').append(tplEdit(data.data[0]));
+      console.log(data.data[0]);
+      var modal = $('#modal');
+      bindEditEvents(modal);
+      modal.fadeIn(300);
+    })
+
+    function closeModal(modal) {
+      modal.fadeOut(300, function() { modal.remove(); });
+    }
+
+    function bindEditEvents(modal) {
+      // Cancel.
+      modal.find('[data-action="cancel"]').on('click', function(e) {
+        e.preventDefault();
+        closeModal(modal);
+      });
+
+      // Delete.
+      modal.find('[data-action="delete"]').on('click', function(e) {
+        e.preventDefault();
+        var listId = modal.data('listid');
+        deleteListItem(listId).done(function(response) {
+          var listing = $('#list-listing').find('[data-listid="' + listId + '"]');
+
+          if (listing.hasClass('selected')) {
+            $('#right-panel').html('');
+          }
+
+          listing.fadeOut(300, function() { listing.remove(); });
+
+          closeModal(modal);
+          var options = {
+            type : response.type,
+            message : response.message,
+            autoRemove : true
+          }
+          notification.show(options);
+        });
+      });
+
+      // Save.
+      modal.find('[data-action="save"]').on('click', function(e) {
+        e.preventDefault();
+      });
+
+    }
+  }
+
+  function getListItem(listId) {
+    var deferred = $.Deferred();
+    var listingRequest = Bacon.once({
+      type: 'post',
+      url: 'list/get',
+      data: {listId : listId}
+    }).ajax();
+
+    listingRequest.onValue(function(data) {
+      deferred.resolve(data);
+    })
+
+    listingRequest.onError(function(err) {
+      deferred.reject(err);
+    })
+
+    return deferred;
+  }
+
+  function deleteListItem(listId) {
+    var deferred = $.Deferred();
+    var deleteRequest = Bacon.once({
+      type: 'post',
+      url: 'list/delete',
+      data: {listId : listId}
+    }).ajax();
+
+    deleteRequest.onValue(function(data) {
+      deferred.resolve(data);
+    })
+
+    deleteRequest.onError(function(err) {
+      deferred.reject(err);
+    })
+
+    return deferred;
   }
 
 

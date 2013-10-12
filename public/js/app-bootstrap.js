@@ -39,8 +39,9 @@ require([
   'bacon',
   'lodash',
   'controllers/left-panel',
-  'controllers/middle-panel'
-], function($, bacon, _, leftPanel, middlePanel) {
+  'controllers/middle-panel',
+  'controllers/notification'
+], function($, bacon, _, leftPanel, middlePanel, notification) {
 
   leftPanel.init($('#left-panel'));
   middlePanel.init($('#middle-panel'));

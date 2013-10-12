@@ -1,2 +1,2 @@
-<div id="list-filter">TODO: Filter/sort</div>
+<h2 class="form-title">ToDo-lists</h2>
 <div id="list-listing" class="list-listing"></div>

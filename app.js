@@ -28,7 +28,8 @@ var connection = mysql.createConnection({
   host     : configs.db.host,
   user     : configs.db.user,
   password : configs.db.password,
-  database : configs.db.database
+  database : configs.db.database,
+  multipleStatements : true
 });
 
 // Establish database connection.

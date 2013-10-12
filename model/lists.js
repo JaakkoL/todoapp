@@ -15,16 +15,14 @@ function ListsDAO(connection) {
         query = 'INSERT INTO list (name, categoryId) ' +
                 'VALUES (' + name + ', ' + categoryId + ')';
 
-    console.log(creator);
     connection.query(query, function(err, results) {
-      console.log(results);
 
       var accessQuery = 'INSERT INTO access (uid, listId, role) ' +
                         'VALUES (' + creator + ', ' + results.insertId + ', "creator")';
 
       connection.query(accessQuery, function(error, res) {
         console.log(error)
-        callback(error, res);
+        callback(error, results);
       });
 
     });
@@ -39,7 +37,7 @@ function ListsDAO(connection) {
     var query = 'SELECT list.listId, list.categoryId, list.name ' +
                 'FROM list LEFT JOIN access ON (list.listId = access.listId) ' +
                 'WHERE access.uid = ' + uid + ' AND list.listId = ' + listId + ' ' +
-                'ORDER BY created DESC;'
+                'ORDER BY created DESC;';
 
     connection.query(query, function(err, results) {
         callback(err, results);
@@ -54,7 +52,7 @@ function ListsDAO(connection) {
                 'ORDER BY created DESC;'
 
     connection.query(query, function(err, results) {
-        callback(err, results);
+      callback(err, results);
     });
   }
 
@@ -63,11 +61,16 @@ function ListsDAO(connection) {
 
   // Deletes a list with a specified id.
   this.removeList = function(listId, callback) {
-    var query = 'DELETE FROM list where listID = ' + connection.escape(listId);
-
+    // Delete the data from list, task and access tables.
+    var query = 'DELETE FROM list WHERE listID = ' + connection.escape(listId) + ';';
+    query += 'DELETE FROM task WHERE listID = ' + connection.escape(listId) + ';';
+    query += 'DELETE FROM access WHERE listID = ' + connection.escape(listId) + ';';
+    console.log(query)
     connection.query(query, function(err, results) {
-        callback(err, results);
+      callback(err, results);
     });
+
+
   }
 
 }

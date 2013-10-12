@@ -1,0 +1,21 @@
+<div id="modal" class="modal-background" data-listid="{{listId}}">
+    <div class="modal-wrapper">
+        <div class="modal-content">
+            <div class="form-element">
+                <label>Name</label>
+                <input class="name" type="text" placeholder="list name" value="{{name}}" />
+            </div>
+
+            <div class="form-element">
+                <label>Category</label>
+                <input class="category" type="text" placeholder="category" disabled="true" />
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button data-action="save" class="btn">Save</button>
+            <button data-action="cancel" class="btn cancel">Cancel</button>
+            <button data-action="delete" class="btn delete">Delete</button>
+        </div>
+    </div>
+</div>

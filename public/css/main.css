@@ -125,6 +125,8 @@ input:focus,input:active{border-bottom:1px solid #f1c40f;outline:none !important
 .btn{background-color:#27ae60;border:0;color:white;line-height:2rem;font-size:2rem;margin:10px 10px 10px 0;padding:10px 20px;-webkit-transition:all .4s;-moz-transition:all .4s;-ms-transition:all .4s;-o-transition:all .4s}.btn[disabled="disabled"]{background-color:#bdc3c7}
 .btn:hover{background-color:#2ecc71}.btn:hover[disabled="disabled"]{background-color:#bdc3c7}
 .btn:active{position:relative;top:1px}
+.btn.cancel{background-color:#f1c40f}
+.btn.delete{background-color:#c0392b;float:right;margin-right:0}
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html,body{height:100%;position:relative}
 body{background:#ecf0f1;position:relative}
@@ -165,9 +167,16 @@ h1,h2,h3,h4,h5,h6{font-family:'Gloria Hallelujah',cursive;font-weight:normal}
 .list-listing li .category{background-color:green;border-radius:12px;color:#fff;display:inline-block;float:right;padding:0 20px}
 .right-panel{float:right;padding:20px;width:400px}
 .tasks-form .add-new-task,.tasks-form .edit{font-size:2rem;background-color:#fff;padding:10px 5px;border-bottom:1px dotted #dedede;max-width:100%}
-.tasks-form .tasks-list{list-style:none;margin:0;padding:0}.tasks-form .tasks-list li{background-color:#fff;border-bottom:1px dotted #dedede;position:relative}.tasks-form .tasks-list li.editing .edit{display:block}
+.tasks-form .tasks-list{list-style:none;margin:0;padding:0}.tasks-form .tasks-list li{background-color:#fff;border-bottom:1px dotted #dedede;position:relative}.tasks-form .tasks-list li.done .label{text-decoration:line-through;color:lightgrey}
+.tasks-form .tasks-list li.editing .edit{display:block}
 .tasks-form .tasks-list li.editing .status{visibility:hidden}
-.tasks-form .tasks-list .delete{color:red;position:absolute;right:10px;top:50%;margin-top:-1.5rem;font-size:3rem;line-height:3rem;font-weight:bold;cursor:pointer}.tasks-form .tasks-list .delete:hover{color:#FF6E6E}
-.tasks-form .tasks-list span,.tasks-form .tasks-list .edit{background-color:#fff;cursor:pointer;display:block;font-size:2rem;line-height:2rem;margin:0 0 0 30px;padding:10px 5px}
+.tasks-form .tasks-list li.editing .delete{display:none}
+.tasks-form .tasks-list li:hover .delete{opacity:1}
+.tasks-form .tasks-list .delete{color:red;opacity:0;position:absolute;right:10px;top:50%;margin-top:-1.5rem;font-size:3rem;line-height:3rem;font-weight:bold;cursor:pointer;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;-ms-transition:opacity .4s;-o-transition:opacity .4s}.tasks-form .tasks-list .delete:hover{color:#FF6E6E}
+.tasks-form .tasks-list span,.tasks-form .tasks-list .edit{background-color:#fff;cursor:pointer;display:block;font-size:2rem;line-height:2rem;margin:0 25px 0 30px;padding:10px 5px}
+.tasks-form .tasks-list .edit{margin-right:0}
 .tasks-form .tasks-list .status{color:inherit;float:left;margin:12px 9px}
-.tasks-form .tasks-list .edit{display:none;background:#ccc;position:absolute;top:0;height:4rem;right:0;left:0;width:auto}
+.tasks-form .tasks-list .edit{display:none;background:#ccc;position:absolute;top:0;bottom:0;right:0;left:0;width:auto}
+.modal-background{display:none;position:absolute;top:0;left:0;bottom:0;right:0;background-color:rgba(0,0,0,0.6)}
+.modal-content{background-color:#ecf0f1;padding:20px;margin-top:100px}
+.modal-wrapper{margin:0 auto;width:600px}

@@ -55,8 +55,11 @@ module.exports = exports = function(app, connection) {
   // Delete list.
   app.post('/list/delete', list.removeList);
 
-  // Get lists tasks.
+  // Get all lists.
   app.post('/list/all', list.getAllLists);
+
+  // Get a single.
+  app.post('/list/get', list.getList);
 
   // Get list.
   app.post('/list/tasks', task.getTasks);

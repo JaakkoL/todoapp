@@ -77,6 +77,14 @@ define([
           status = ($list.find('.status').is(':checked')) ? 1 : 0,
           text = $list.find('.edit').val();
 
+          if (status === 1) {
+            $list.addClass('done');
+          }
+          else {
+            $list.removeClass('done');
+          }
+
+
       updateTask(taskId, text, status).done(function(data) {
         console.log(data);
       });
