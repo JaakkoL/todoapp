@@ -41,6 +41,7 @@ define([
 
     addResponse.onValue(function(response) {
       clearForm(element.find('form'));
+      tagit.tagit("removeAll");
       $('#left-panel-nav').find('a').first().trigger('click');
       listView.add(response.data);
     });

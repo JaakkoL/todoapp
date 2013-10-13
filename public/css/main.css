@@ -162,8 +162,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Gloria Hallelujah',cursive;font-weight:normal}
 .left-panel{background:#ecf0f1;float:left;max-height:100%;height:100%;width:300px;overflow-y:scroll}.left-panel .content{width:600px}.left-panel .content>div{padding:20px;float:left;width:50%}
 .left-panel-nav{margin:20px 0;text-align:center}.left-panel-nav a{color:#bdc3c7;cursor:pointer;display:inline-block;margin:0 5px}.left-panel-nav a.active{border-bottom:2px solid;color:#333;cursor:default}
 .left-panel-nav a:hover{color:#000}
-.middle-panel{padding:20px;margin-left:300px;margin-right:400px;background-color:#ccc}
-.list-listing ul{list-style:none;margin:0;padding:0}
+.middle-panel{padding:20px;margin-left:300px;margin-right:400px;background-color:#ccc;height:100%;overflow-y:scroll}
+.list-listing{overflow-y:scroll;min-height:100%;height:100%}.list-listing ul{list-style:none;margin:0;margin-bottom:60px;padding:0}
 .list-listing li{background-color:#fff;border:1px solid #dedede;cursor:pointer;margin-bottom:3px;padding:10px}.list-listing li:hover{background-color:#dedede}
 .list-listing li.selected{background-color:#ccc}
 .list-listing li .category{background-color:green;border-radius:12px;color:#fff;display:inline-block;float:right;padding:0 20px}
