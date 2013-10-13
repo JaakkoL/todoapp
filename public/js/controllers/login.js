@@ -35,9 +35,7 @@ define([
 
 
     loginResponse.onValue(function(response) {
-      // TODO: Redirect to application page.
-      console.log('success');
-      console.log(response);
+      // Redirect to application page.
       window.location.reload();
     });
 

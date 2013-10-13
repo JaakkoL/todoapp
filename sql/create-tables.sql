@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.10)
 # Database: todoapp
-# Generation Time: 2013-10-01 20:55:17 +0000
+# Generation Time: 2013-10-13 19:34:07 +0000
 # ************************************************************
 
 
@@ -27,23 +27,9 @@ CREATE TABLE `access` (
   `uid` int(11) unsigned NOT NULL COMMENT 'Users id.',
   `listId` int(11) NOT NULL COMMENT 'Lists is.',
   `role` varchar(50) NOT NULL DEFAULT '' COMMENT 'Access role, owner or contributor.',
+  UNIQUE KEY `listId` (`listId`,`uid`),
   KEY `uid` (`uid`),
   KEY `lid` (`listId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table category
-# ------------------------------------------------------------
-
-CREATE TABLE `category` (
-  `categoryId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Category id.',
-  `parent` int(11) DEFAULT NULL COMMENT 'Category parent item id.',
-  `name` varchar(255) DEFAULT NULL COMMENT 'Category name.',
-  `uid` int(11) NOT NULL COMMENT 'Creator user id.',
-  PRIMARY KEY (`categoryId`),
-  KEY `parent` (`parent`),
-  KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -53,7 +39,6 @@ CREATE TABLE `category` (
 
 CREATE TABLE `list` (
   `listId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'List unique id.',
-  `categoryId` int(11) DEFAULT NULL COMMENT 'Category id where this list belongs to.',
   `name` varchar(255) DEFAULT NULL COMMENT 'List name.',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'List creation time.',
   `edited` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when list was last modified.',
@@ -70,6 +55,30 @@ CREATE TABLE `session` (
   `sessionId` varchar(255) DEFAULT NULL COMMENT 'Session id string.',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation timestamp.',
   UNIQUE KEY `sessionid` (`sessionId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table tag
+# ------------------------------------------------------------
+
+CREATE TABLE `tag` (
+  `tagId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Tags id field',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT 'Tags name',
+  `uid` int(11) NOT NULL COMMENT 'User id of tag owner.',
+  PRIMARY KEY (`tagId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table tag_ref
+# ------------------------------------------------------------
+
+CREATE TABLE `tag_ref` (
+  `listId` int(11) unsigned NOT NULL,
+  `tagId` int(11) DEFAULT NULL,
+  KEY `listId` (`listId`),
+  KEY `listId_2` (`listId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

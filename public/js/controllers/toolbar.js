@@ -6,7 +6,8 @@ define([
 
   // Renders the login form inside element.
   function render(element) {
-    element.html(template());
+
+    element.html(template({firstname : 'User'}));
     bindEvents(element);
   }
 

@@ -5,8 +5,8 @@
     </div>
 
     <div class="form-element">
-        <label>Category</label>
-        <input class="category" type="text" placeholder="category" disabled="true" />
+        <label>Tags</label>
+        <input class="tags" type="text" placeholder="tags" />
     </div>
 
     <div class="form-buttons">

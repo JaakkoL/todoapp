@@ -12,9 +12,11 @@ require({
 
   paths: {
     jquery: 'lib/jquery-1.10.2.min',
+    jqueryUI: 'lib/jquery-ui.min',
     templates: '../templates',
     Handlebars: 'lib/handlebars',
     hbs: 'lib/hbs',
+    tagit: 'lib/tag-it',
     underscore : 'lib/hbs/underscore',
     i18nprecompile : 'lib/hbs/i18nprecompile',
     json2 : 'lib/hbs/json2',
@@ -28,6 +30,8 @@ require({
     Handlebars: { exports: 'Handlebars' },
     bacon: { exports: 'Bacon' },
     bjq: { deps: ['jquery', 'bacon'] },
+    jqueryUI: {deps: ['jquery']},
+    tagit: {deps: ['jquery', 'jqueryUI']},
     jquery: { exports: '$' },
     lodash: { exports: '_' }
   }
@@ -40,10 +44,11 @@ require([
   'lodash',
   'controllers/left-panel',
   'controllers/middle-panel',
-  'controllers/notification'
-], function($, bacon, _, leftPanel, middlePanel, notification) {
+  'controllers/notification',
+  'controllers/toolbar'
+], function($, bacon, _, leftPanel, middlePanel, notification, toolbar) {
 
   leftPanel.init($('#left-panel'));
   middlePanel.init($('#middle-panel'));
-
+  toolbar.init($('#toolbar'));
 })

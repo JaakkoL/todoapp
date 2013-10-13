@@ -1,8 +1,9 @@
 define([
   'hbs!templates/list/add-list',
   'bjq',
-  'controllers/list-view'
-], function (tplAdd, bjq, listView) {
+  'controllers/list-view',
+  'tagit'
+], function (tplAdd, bjq, listView, tags) {
   var element;
 
   function render(elem) {
@@ -15,15 +16,23 @@ define([
   function bindEvents(element) {
 
     var name = bjq.textFieldValue(element.find('.name'), ''),
-        category = bjq.textFieldValue(element.find('.category'), '');
+        tags = bjq.textFieldValue(element.find('.tags'), '');
+
+    var tagit = element.find('.tags');
+
+    tagit.tagit({
+      availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
+      allowSpaces: true,
+      placeholderText: 'add tag'
+    });
 
     var addButtonClick = element.find('[data-action="add-new-list"]').asEventStream('click').doAction('.preventDefault');
 
-    var addRequest = name.combine(category, function(n, c) {
+    var addRequest = name.combine(tags, function(n, t) {
       return {
         type: 'post',
         url: 'list/add',
-        data: {name: n, category: c}
+        data: {name: n, tags: tagit.tagit("assignedTags")}
       };
     }).sampledBy(addButtonClick);
 
@@ -41,6 +50,12 @@ define([
       console.log('adding new list failed');
       console.log(err);
     });
+
+    var buttonEnabled = (function() {
+      return name.map(nonEmpty);
+    })();
+
+    buttonEnabled.onValue(setEnabled, element.find('[data-action="add-new-list"]'));
   }
 
   function clearForm(form) {

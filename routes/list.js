@@ -10,11 +10,10 @@ function ListHandler(connection) {
   var lists = new ListsDAO(connection);
 
   this.addList = function(req, res) {
-    // TODO: Get data from body.
     var data = {
       name: req.body.name,
-      creator: req.uid
-      //categoryId: TODO
+      creator: req.uid,
+      tags: req.body.tags
     }
 
     lists.addList(data, function(err, results) {

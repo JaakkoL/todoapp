@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 /**
  * model/lists.js
  *
@@ -6,26 +8,82 @@
 
 function ListsDAO(connection) {
 
+  // Get users all tags.
+  this.usersTags = function(uid, callback) {
+    var query = 'SELECT * FROM tag WHERE uid = ' + uid + ';';
+    connection.query(query, function(err, results) {
+      callback(err, results);
+    });
+  }
+
+  this.addTags = function(tags, uid, callback) {
+
+    this.usersTags(uid, function(err, usersTags) {
+      if (err) return new Error('Fetching tags failed');
+
+      var names = _.map(usersTags, function(tag) { return tag.name; }),
+          query = '',
+          existingTags = [];
+
+        for (var i in tags) {
+          if (names.indexOf(tags[i]) == -1) {
+            query += 'INSERT INTO tag (name, uid) ' +
+                    'VALUES (\'' + tags[i] + '\', ' + uid + ');';
+          }
+          else {
+            existingTags.push(tags[i]);
+          }
+        }
+
+        // Do the insert. Return existing and inserted tagIgs.
+        connection.query(query, function(err, results) {
+          var ids = _.map(results, function(result) {return result.insertId; });
+          var oldIds = _.filter(usersTags, function(tag) {
+            return (existingTags.indexOf(tag.name) > -1);
+          }).map(function(tag) { return tag.tagId});
+          callback(err, _.union(ids, oldIds));
+        });
+    });
+
+  }
+
   // Adds a new list entry.
   this.addList = function(data, callback) {
 
     var name = connection.escape(data.name),
-        categoryId = connection.escape((data.categoryId !== undefined) ? data.categoryId : 0),
         creator = connection.escape(data.creator),
-        query = 'INSERT INTO list (name, categoryId) ' +
-                'VALUES (' + name + ', ' + categoryId + ')';
+        listId = null,
+        tagIds = null;
 
-    connection.query(query, function(err, results) {
+    this.addTags(data.tags, creator, function(err, results) {
+      tagIds = results;
+      console.log(results);
 
-      var accessQuery = 'INSERT INTO access (uid, listId, role) ' +
-                        'VALUES (' + creator + ', ' + results.insertId + ', "creator")';
+      // Insert list.
+      var query = 'INSERT INTO list (name) ' +
+                      'VALUES (' + name + ')';
 
-      connection.query(accessQuery, function(error, res) {
-        console.log(error)
-        callback(error, results);
+      connection.query(query, function(err, results) {
+
+        listId = results.insertId;
+
+        // Give access to the creator.
+        var q = 'INSERT INTO access (uid, listId, role) ' +
+                         'VALUES (' + creator + ', ' + listId + ', "creator");';
+
+        // Add tag reference to database.
+        for (var i = 0; i < tagIds.length; i++) {
+          q += 'INSERT INTO tag_ref (listId, tagId) VALUES (' + listId + ', ' + tagIds[i]  + ');';
+        }
+
+        connection.query(q, function(error, res) {
+          callback(error, results);
+        });
+
       });
 
-    });
+    })
+
   }
 
   // Returns a certain list.
@@ -34,7 +92,7 @@ function ListsDAO(connection) {
     var listId = connection.escape(data.listId),
         uid = connection.escape(data.uid);
 
-    var query = 'SELECT list.listId, list.categoryId, list.name ' +
+    var query = 'SELECT list.listId, list.name ' +
                 'FROM list LEFT JOIN access ON (list.listId = access.listId) ' +
                 'WHERE access.uid = ' + uid + ' AND list.listId = ' + listId + ' ' +
                 'ORDER BY created DESC;';
@@ -46,7 +104,7 @@ function ListsDAO(connection) {
 
   // Returns all lists.
   this.getAllLists = function(uid, callback) {
-    var query = 'SELECT list.listId, list.categoryId, list.name ' +
+    var query = 'SELECT list.listId, list.name ' +
                 'FROM list LEFT JOIN access ON (list.listId = access.listId) ' +
                 'WHERE access.uid = ' + connection.escape(uid) + ' ' +
                 'ORDER BY created DESC;'
@@ -59,10 +117,9 @@ function ListsDAO(connection) {
   // Updates a list.
   this.updateList = function(data, callback) {
     var name = connection.escape(data.name),
-        categoryId = connection.escape(data.categoryId),
         listId = connection.escape(data.listId);
 
-    var query = 'UPDATE list SET name = ' + name + ', categoryId = ' + categoryId + ', edited = CURRENT_TIMESTAMP ' +
+    var query = 'UPDATE list SET name = ' + name + ', edited = CURRENT_TIMESTAMP ' +
                 'WHERE listId = ' + listId + ';';
 
     connection.query(query, function(err, results) {

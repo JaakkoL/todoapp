@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.10)
 # Database: todoapp
-# Generation Time: 2013-09-16 16:45:22 +0000
+# Generation Time: 2013-10-13 19:33:50 +0000
 # ************************************************************
 
 
@@ -27,13 +27,6 @@ DROP TABLE IF EXISTS `access`;
 
 
 
-# Dump of table category
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `category`;
-
-
-
 # Dump of table list
 # ------------------------------------------------------------
 
@@ -45,6 +38,20 @@ DROP TABLE IF EXISTS `list`;
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `session`;
+
+
+
+# Dump of table tag
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tag`;
+
+
+
+# Dump of table tag_ref
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tag_ref`;
 
 
 

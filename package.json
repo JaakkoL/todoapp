@@ -7,7 +7,8 @@
     "bcrypt-nodejs": "~0.0.3",
     "consolidate": "~0.9.1",
     "swig": "~0.14.0",
-    "less-middleware": "0.1.12"
+    "less-middleware": "0.1.12",
+    "lodash" : "2.2.1"
   },
   "engines": {
     "node": "0.10.x",
