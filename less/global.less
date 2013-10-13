@@ -482,22 +482,35 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 .contributors-list {
   list-style: none;
-  margin: 0;
+  margin: 0 0 20px 0;
   padding: 0;
 
   li {
     background-color: white;
+    border-top: 5px solid @colorClouds;
     padding: 4px 10px;
+
+    &:first-child {
+      border-top: none;
+    }
   }
 
   .email {}
   .role {
     display: inline-block;
     float: right;
-    background-color: #f00;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 1.4rem;
+    line-height: inherit;
+    margin-top: 3px;
 
-    &.role-contributor {}
-    &.role-creator {}
+    &.role-contributor {
+      background-color: @colorOrange;
+    }
+    &.role-creator {
+      background-color: @colorSunflower;
+    }
   }
 }
 
