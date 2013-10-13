@@ -204,7 +204,7 @@ define([
             addNewContributor(listId, email).done(function(response) {
               console.log(response)
               console.log('response')
-              contributorsList.append('<li data-uid="' + response.data + '"><span class="email">' + email + '</span> <span class="role">contributor</span></li>');
+              contributorsList.append('<li data-uid="' + response.data + '"><span class="email">' + email + '</span> <span class="role role-contributor">contributor</span></li>');
             }).fail(function(err) {
               var options = {
                 type : err.responseJSON.type,

@@ -478,6 +478,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =============================================================================
+   Sharing.
+   ========================================================================== */
+.contributors-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    background-color: white;
+    padding: 4px 10px;
+  }
+
+  .email {}
+  .role {
+    display: inline-block;
+    float: right;
+    background-color: #f00;
+
+    &.role-contributor {}
+    &.role-creator {}
+  }
+}
+
+/* =============================================================================
    Modal.
    ========================================================================== */
 .modal-background {

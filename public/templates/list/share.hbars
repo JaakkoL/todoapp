@@ -4,7 +4,7 @@
         <div class="modal-content">
             <ul class="contributors-list">
                 {{#each this}}
-                  <li data-uid="{{uid}}"><span class="email">{{this.email}}</span><span class="role">{{role}}</span></li>
+                  <li data-uid="{{uid}}"><span class="email">{{this.email}}</span><span class="role role-{{role}}">{{role}}</span></li>
                 {{/each}}
             </ul>
 
