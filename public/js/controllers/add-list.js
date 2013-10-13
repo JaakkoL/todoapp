@@ -21,7 +21,8 @@ define([
     var tagit = element.find('.tags');
 
     tagit.tagit({
-      availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
+      // TODO: Load available tags from database.
+      availableTags: [],
       allowSpaces: true,
       placeholderText: 'add tag'
     });

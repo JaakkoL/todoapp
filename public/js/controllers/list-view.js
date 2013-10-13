@@ -13,7 +13,6 @@ define([
 
     // Show all lists from db.
     getAllLists().done(function(response) {
-      // TODO: Needs category name.
       element.html(tplListing(response));
       bindEvents();
     })
@@ -162,14 +161,12 @@ define([
 
         var data = {
           name : modal.find('input.name').val(),
-          categoryId : 0,
           listId : listId
         }
 
         updateListItem(data).done(function(response) {
           var listing = $('#list-listing').find('[data-listid="' + listId + '"]');
           listing.find('.name').text(data.name);
-          listing.find('.category').text(data.categoryId);
 
           closeModal(modal);
           var options = {
